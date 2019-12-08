@@ -7,6 +7,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "transform.h"
+#include "Time.h"
 
 enum class GameState { PLAY, EXIT };
 
@@ -31,6 +32,8 @@ private:
 	GameObject* cube;
 
 	Transform transform;
+
+	Time time;
 
 	float counter = 0;
 };

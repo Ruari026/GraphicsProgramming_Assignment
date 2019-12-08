@@ -24,6 +24,8 @@ void MainGame::gameLoop()
 {
 	while (_gameState != GameState::EXIT)
 	{
+		time.Update();
+
 		processInput();
 		drawGame();
 	}
@@ -49,7 +51,7 @@ void MainGame::drawGame()
 {
 	_gameDisplay->clearDisplay(0.0f, 1.0f, 1.0f, 1.0f);
 
-	counter += 0.001f;
+	counter += 0.001f * time.deltaTime;
 	cube->transform.SetRot(glm::vec3(0, counter, 0));
 
 	cube->updateGameObject();
