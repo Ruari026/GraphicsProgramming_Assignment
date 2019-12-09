@@ -1,6 +1,5 @@
 #pragma once
 #include <SDL/SDL.h>
-#include <iostream>
 
 class Time
 {

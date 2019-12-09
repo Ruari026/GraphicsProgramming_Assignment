@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "Component.h"
 
 #include <string>
 
@@ -19,7 +20,10 @@ public:
 
 		shader = new Shader(shaderFilePath); //new shader
 	}
-	~GameObject();
+	~GameObject()
+	{
+
+	}
 
 	Mesh* mesh;
 	Texture* texture;

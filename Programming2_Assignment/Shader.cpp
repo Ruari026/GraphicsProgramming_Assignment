@@ -19,6 +19,7 @@ Shader::Shader(const std::string& filename)
 
 	glBindAttribLocation(program, 0, "position"); // associate attribute variable with our shader program attribute (in this case attribute vec3 position;)
 	glBindAttribLocation(program, 1, "texCoord");
+	glBindAttribLocation(program, 1, "normal");
 
 	glLinkProgram(program); //create executables that will run on the GPU shaders
 	CheckShaderError(program, GL_LINK_STATUS, true, "Error: Shader program linking failed"); // cheack for error

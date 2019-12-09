@@ -3,9 +3,6 @@
 #include <GL/glew.h>
 #include "Display.h" 
 #include "GameObject.h"
-#include "Shader.h"
-#include "Mesh.h"
-#include "Texture.h"
 #include "transform.h"
 #include "Time.h"
 
@@ -27,9 +24,9 @@ private:
 
 	Display* _gameDisplay;
 	GameState _gameState;
-	Camera* myCamera;
+	Camera* _gameCamera;
 
-	GameObject* cube;
+	GameObject* testGameObject;
 
 	Transform transform;
 

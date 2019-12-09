@@ -2,11 +2,6 @@
 #include <vector>
 
 
-Mesh::Mesh()
-{
-	drawCount = 0;
-	vertexArrayObject = 0;
-}
 Mesh::Mesh(std::string fileName)
 {
 	drawCount = 0;
@@ -25,25 +20,6 @@ void Mesh::draw()
 	glBindVertexArray(vertexArrayObject);
 	glDrawArrays(GL_TRIANGLES, 0, drawCount);
 	glBindVertexArray(0);
-}
-
-void Mesh::init(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices)
-{
-	IndexedModel model;
-
-	for (unsigned int i = 0; i < numVertices; i++)
-	{
-		model.positions.push_back(*vertices[i].GetPos());
-		model.texCoords.push_back(*vertices[i].GetTexCoord());
-		model.normals.push_back(*vertices[i].GetNormal());
-	}
-
-	for (unsigned int i = 0; i < numIndices; i++)
-	{
-		model.indices.push_back(indices[i]);
-	}
-
-	initModel(model);
 }
 
 void Mesh::loadModel(const std::string& filename)

@@ -19,5 +19,4 @@ void Time::Update()
 	deltaTime = tickTime - lastTick;
 
 	lastTick = tickTime;
-	std::cout << deltaTime << std::endl;
 }
