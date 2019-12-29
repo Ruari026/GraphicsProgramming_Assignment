@@ -8,11 +8,14 @@ public:
 	Component(GameObject* parent)
 	{
 		gameObject = parent;
+
+		gameObject;
 	}
-	~Component();
+	~Component()
+	{
+
+	}
 
 	virtual void Update() = 0;
-
-private:
 	GameObject* gameObject;
 };

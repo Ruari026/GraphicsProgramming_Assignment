@@ -1,27 +1,23 @@
 #pragma once
-struct Camera
+#include "Component.h"
+
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+
+#include "transform.h"
+
+class Camera : public Component
 {
 public:
-	Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar)
-	{
-		this->pos = pos;
+	Camera(GameObject* parent);
+	void Init(float fov, float aspect, float zNear, float zFar);
 
-		this->forward = glm::vec3(0.0f, 0.0f, 1.0f);
-		this->up = glm::vec3(0.0f, 1.0f, 0.0f);
-		this->projection = glm::perspective(fov, aspect, zNear, zFar);
-	}
+	void Update();
+	glm::mat4 GetViewProjection();
 
-	inline glm::mat4 GetViewProjection() const
-	{
-		return projection * glm::lookAt(pos, pos + forward, up);
-	}
+	Transform* thisTransform;
 
-
-	glm::vec3 pos;
-
-protected:
 private:
-	glm::mat4 projection;
-	glm::vec3 forward;
-	glm::vec3 up;
+	glm::mat4 perspectiveProjection;
+	glm::mat4 orthographicProjection;
 };

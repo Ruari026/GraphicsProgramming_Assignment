@@ -2,6 +2,10 @@
 #include <SDL\SDL.h>
 #include <GL/glew.h>
 #include "Display.h" 
+
+#include "GameScene.h"
+#include "Level1.h"
+
 #include "GameObject.h"
 #include "transform.h"
 #include "Time.h"
@@ -24,13 +28,8 @@ private:
 
 	Display* _gameDisplay;
 	GameState _gameState;
-	Camera* _gameCamera;
 
-	GameObject* testGameObject;
+	GameScene* currentScene;
 
-	Transform transform;
-
-	Time time;
-
-	float counter = 0;
+	Time* time;
 };

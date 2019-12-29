@@ -1,2 +1,5 @@
-﻿  Display.cpp
+﻿  Level1.cpp
+C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Programming2_Assignment\GameObject.h(67,21): warning C4018:  '<': signed/unsigned mismatch
+C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Programming2_Assignment\transform.h(66): warning C4172:  returning address of local variable or temporary
+C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Programming2_Assignment\transform.h(146): warning C4172:  returning address of local variable or temporary: totalRot
   Programming2_Assignment.vcxproj -> C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Debug\Coursework.exe

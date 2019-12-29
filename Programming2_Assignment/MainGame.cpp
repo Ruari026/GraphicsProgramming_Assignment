@@ -5,41 +5,49 @@
 MainGame::MainGame()
 {
 	_gameState = GameState::PLAY;
-	_gameDisplay = new Display(1024, 768); //new display
-	_gameCamera = new Camera(glm::vec3(0, 0.5f, -5), 70.0f, (_gameDisplay->getWidth() / _gameDisplay->getHeight()), 0.01f, 1000.0f);
+	_gameDisplay = new Display(1024, 1024); //new display
 
-	testGameObject = new GameObject("..\\res\\Polaroid.obj", "..\\res\\Polaroid.png", "..\\res\\shader");
+	// Timer
+	time = new Time();
+
+	currentScene = new Level1(_gameDisplay);
 }
-
 MainGame::~MainGame()
-{
+{ 
 }
+
+
 void MainGame::run()
 {
 	gameLoop();
 }
 
+
 void MainGame::gameLoop()
 {
 	while (_gameState != GameState::EXIT)
 	{
-		time.Update();
+		time->Update();
 
 		processInput();
 		drawGame();
 	}
 }
 
+
 void MainGame::processInput()
 {
-	SDL_Event evnt;
+	SDL_Event event;
 
-	while (SDL_PollEvent(&evnt)) //get and process events
+	// Consumes the current event and acts appropriately
+	while (SDL_PollEvent(&event))
 	{
-		switch (evnt.type)
+		switch (event.type)
 		{
-		case SDL_QUIT:
-			_gameState = GameState::EXIT;
+			case SDL_QUIT:
+			{
+				_gameState = GameState::EXIT;
+			}
 			break;
 		}
 	}
@@ -50,13 +58,7 @@ void MainGame::drawGame()
 {
 	_gameDisplay->clearDisplay(0.0f, 1.0f, 1.0f, 1.0f);
 
-	// Rotating GameObject
-	counter += 0.001f * time.deltaTime;
-	testGameObject->transform.SetRot(glm::vec3(-0.5f, counter, 0));
-
-
-	testGameObject->updateGameObject();
-	testGameObject->renderGameObject(_gameCamera);
+	currentScene->RunScene();
 
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnd();

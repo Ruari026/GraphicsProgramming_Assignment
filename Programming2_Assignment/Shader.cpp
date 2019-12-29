@@ -5,29 +5,34 @@
 
 Shader::Shader(const std::string& filename)
 {
+	// Completing the filepaths for both shader types
 	std::string vertPath = filename + ".vert";
 	std::string fragPath = filename + ".frag";
 
-	program = glCreateProgram(); // create shader program (openGL saves as ref number)
+	// create shader program (openGL saves as ref number)
+	program = glCreateProgram();
 	shaders[0] = CreateShader(LoadShader(vertPath), GL_VERTEX_SHADER); // create vertex shader
 	shaders[1] = CreateShader(LoadShader(fragPath), GL_FRAGMENT_SHADER); // create fragment shader
 
+	// add both the new fragment and new vertex shaders to the shader program
 	for (unsigned int i = 0; i < NUM_SHADERS; i++)
 	{
-		glAttachShader(program, shaders[i]); //add all our shaders to the shader program "shaders" 
+		glAttachShader(program, shaders[i]);
 	}
 
-	glBindAttribLocation(program, 0, "position"); // associate attribute variable with our shader program attribute (in this case attribute vec3 position;)
+	// Tells OpenGl What part of the data to read in as what variable
+	glBindAttribLocation(program, 0, "position");
 	glBindAttribLocation(program, 1, "texCoord");
-	glBindAttribLocation(program, 1, "normal");
+	glBindAttribLocation(program, 2, "normal");
 
 	glLinkProgram(program); //create executables that will run on the GPU shaders
-	CheckShaderError(program, GL_LINK_STATUS, true, "Error: Shader program linking failed"); // cheack for error
+	CheckShaderError(program, GL_LINK_STATUS, true, "Error: Shader program linking failed"); // check for error
 
 	glValidateProgram(program); //check the entire program is valid
 	CheckShaderError(program, GL_VALIDATE_STATUS, true, "Error: Shader program not valid");
 
 	uniforms[TRANSFORM_U] = glGetUniformLocation(program, "transform"); // associate with the location of uniform variable within a program
+	uniforms[PROJECTION_U] = glGetUniformLocation(program, "projection");
 }
 
 
@@ -46,10 +51,15 @@ void Shader::Bind()
 	glUseProgram(program); //installs the program object specified by program as part of rendering state
 }
 
-void Shader::Update(const Transform& transform, const Camera& camera)
+void Shader::Update(Transform& transform, Camera& camera)
 {
-	glm::mat4 mvp = camera.GetViewProjection() * transform.GetModel();
-	glUniformMatrix4fv(uniforms[TRANSFORM_U], 1, GLU_FALSE, &mvp[0][0]);
+	glm::mat4 model = transform.GetModel();
+	glm::mat4 viewProjection = camera.GetViewProjection();
+
+	glm::mat4 mvp = viewProjection * model;
+
+	glUniformMatrix4fv(uniforms[TRANSFORM_U], 1, GLU_FALSE, &model[0][0]);
+	glUniformMatrix4fv(uniforms[PROJECTION_U], 1, GLU_FALSE, &viewProjection[0][0]);
 }
 
 

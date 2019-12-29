@@ -1,48 +1,75 @@
 #pragma once
+
 #include "transform.h"
-#include "Mesh.h"
-#include "Shader.h"
-#include "Texture.h"
+
 #include "Component.h"
+#include "BoxCollider.h"
+#include "PhysicsHandler.h"
+#include "Renderer.h"
+#include "SphereCollider.h"
 
 #include <string>
+#include <vector>
 
-using namespace std;
+class GameScene; // Forward declaration to avoid circular depedencies
 
 class GameObject
 {
 public:
-	GameObject(string meshFilePath, string textureFilePath, string shaderFilePath)
+	GameObject(GameScene* scene)
 	{
-		mesh = new Mesh(meshFilePath);
-
-		texture = new Texture(textureFilePath); //load texture
-
-		shader = new Shader(shaderFilePath); //new shader
+		parentScene = scene;
+		
+		thisTransform = new Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	}
 	~GameObject()
 	{
-
 	}
 
-	Mesh* mesh;
-	Texture* texture;
-	Shader* shader;
+	GameScene* parentScene;
 
-	Transform transform;
+	Transform* thisTransform;
 
-	void renderGameObject(Camera* mainCamera)
+
+	/*
+	====================================================================================================
+	Handling GameObject Components
+	====================================================================================================
+	*/
+	template <class T>
+	auto addComponent()
 	{
-		shader->Bind();
-		shader->Update(transform, *mainCamera);
-		texture->Bind(0);
-		mesh->draw();
+		T* newComponent = new T(this);
+		components.push_back(newComponent);
+
+		return newComponent;
+	}
+	template <class T>
+	auto getComponent()
+	{
+		T* component = nullptr;
+
+		for (int i = 0; i < this->components.capacity(); i++)
+		{
+			T* x = dynamic_cast<T*>(components[i]);
+			
+			if (x != NULL)
+			{
+				component = x;
+			}
+		}
+
+		return component;
 	}
 
 	void updateGameObject()
 	{
-
+		for (int i = 0; i < components.size(); i++)
+		{
+			components[i]->Update();
+		}
 	}
 
 private:
+	std::vector<Component*> components;
 };

@@ -36,6 +36,9 @@ Display::Display(float width, float height)
 
 	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glEnable(GL_DEPTH_TEST); //enable z-buffering 
 	glEnable(GL_CULL_FACE); //dont draw faces that are not pointing at the camera
 }

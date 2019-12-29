@@ -5,7 +5,7 @@ class Time
 {
 public:
 
-	static int deltaTime;
+	static float deltaTime;
 
 	Time();
 	~Time();
