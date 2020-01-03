@@ -4,6 +4,9 @@
 
 #include "Component.h"
 #include "BoxCollider.h"
+#include "camera.h"
+#include "CameraMount.h"
+#include "EnvironmentController.h"
 #include "PhysicsHandler.h"
 #include "Renderer.h"
 #include "SphereCollider.h"

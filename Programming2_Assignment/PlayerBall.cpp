@@ -8,7 +8,7 @@ PlayerBall::PlayerBall(GameScene* scene) : GameObject(scene)
 
 	// Collider
 	SphereCollider* collider = this->addComponent<SphereCollider>();
-	collider->SetSphereSize(0.9f);
+	collider->SetSphereSize(1.0f);
 	collider->SetColliderOffset(0.0f, 0.0f, 0.0f);
 
 	// Physics Movement

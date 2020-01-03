@@ -9,22 +9,18 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 
-
-using namespace glm;
-
 class PhysicsHandler : public Component
 {
 public: 
 	PhysicsHandler(GameObject* parent);
-
 	void Update();
 
 private:
 	// World Values
 	float maxTimeStep = 0.01f;
 
-	const float gravity = 4.0f;
-	const float airResistance = 0.05f;
+	float gravity = -3.0f;
+	const float airResistance = 0.01f;
 
 	// Collision Handling
 	bool CheckCollision(glm::vec3 newPosition, BoxCollider* otherCollider);

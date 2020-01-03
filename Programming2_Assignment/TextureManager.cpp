@@ -1,14 +1,13 @@
 #include "TextureManager.h"
-TextureManager* TextureManager::instance = NULL;
+TextureManager* TextureManager::instance = nullptr;
 
 TextureManager::TextureManager()
 {
-	instance = 0;
 }
 
 TextureManager* TextureManager::Instance()
 {
-	if (instance == 0)
+	if (instance == nullptr)
 	{
 		instance = new TextureManager();
 	}

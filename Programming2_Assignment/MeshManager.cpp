@@ -1,14 +1,13 @@
 #include "MeshManager.h"
-MeshManager* MeshManager::instance = NULL;
+MeshManager* MeshManager::instance = nullptr;
 
 MeshManager::MeshManager()
 {
-	instance = 0;
 }
 
 MeshManager* MeshManager::Instance()
 {
-	if (instance == 0)
+	if (instance == nullptr)
 	{
 		instance = new MeshManager();
 	}

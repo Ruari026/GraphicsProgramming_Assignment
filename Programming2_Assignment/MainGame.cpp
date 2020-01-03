@@ -9,6 +9,7 @@ MainGame::MainGame()
 
 	// Timer
 	time = new Time();
+	inputManager = InputManager::Instance();
 
 	currentScene = new Level1(_gameDisplay);
 }
@@ -37,19 +38,12 @@ void MainGame::gameLoop()
 
 void MainGame::processInput()
 {
-	SDL_Event event;
+	inputManager->HandleInput();
 
-	// Consumes the current event and acts appropriately
-	while (SDL_PollEvent(&event))
+	// Quitting the game
+	if (inputManager->IsQuittingGame())
 	{
-		switch (event.type)
-		{
-			case SDL_QUIT:
-			{
-				_gameState = GameState::EXIT;
-			}
-			break;
-		}
+		_gameState = GameState::EXIT;
 	}
 }
 

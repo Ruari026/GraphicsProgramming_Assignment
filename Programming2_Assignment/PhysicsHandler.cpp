@@ -25,18 +25,20 @@ void PhysicsHandler::Update()
 	// STEP 1 - Movement Equations
 	// Calculating Velocity
 	velocity.x = ((velocity.x) / (-1 * airResistance)) * (-1 * airResistance) * exp(-1 * airResistance * timeStep);
-	velocity.y = (-1 * airResistance) * (((velocity.y) + (gravity / airResistance)) / (-1 * airResistance)) * exp((-1 * airResistance * timeStep)) - ((gravity) / (airResistance));
+	velocity.y = (-1 * airResistance) * (((velocity.y) + (-gravity / airResistance)) / (-1 * airResistance)) * exp((-1 * airResistance * timeStep)) - ((-gravity) / (airResistance));
 	velocity.z = ((velocity.z) / (-1 * airResistance)) * (-1 * airResistance) * exp(-1 * airResistance * timeStep);
-	// Calculating Position TODO: fix y position to include air resistance
-	newPosition.x = (newPosition.x - (velocity.x / (-1 * airResistance))) + (velocity.x / (-1 * airResistance)) * exp(-1 * airResistance * timeStep);
+
+	// Calculating Position
+	newPosition.x = (newPosition.x - (velocity.x / (-1 * airResistance))) + (velocity.x / (-1 * airResistance))*exp(-1 * airResistance * timeStep);
 	newPosition.y = ((gravity * timeStep) / 2) + (velocity.y * timeStep) + newPosition.y;
 	newPosition.z = (newPosition.z - (velocity.z / (-1 * airResistance))) + (velocity.z / (-1 * airResistance)) * exp(-1 * airResistance * timeStep);
-	 
+	
 
 	// STEP 2 - Collision Checks
 	// Getting other colliders in the scene
 	vector<BoxCollider*> otherColliders = gameObject->parentScene->GetSceneColliders();
 	// Checking if collision is occuring
+	glm::vec3 hitPoint;
 	glm::vec3 hitNormal;
 	bool collided = false;
 	for (int i = 0; i < otherColliders.size(); i++)
@@ -45,6 +47,16 @@ void PhysicsHandler::Update()
 		{
 			collided = true;
 			hitNormal = GetCollidedNormal(newPosition, otherColliders[i]);
+
+			glm::vec3 colliderPos = *otherColliders[i]->gameObject->thisTransform->GetGlobalPos();
+			glm::quat colliderRot = *otherColliders[i]->gameObject->thisTransform->GetGlobalRotQuaternion();
+
+			// Getting the hit point on the collider in local space
+			glm::vec3 hitPos = GetCollisionPoint(newPosition, otherColliders[i]);
+			// rotating the hit point so that it lines up with collider's rotation
+			hitPos = colliderRot * hitPos;
+			// Getting hit point in world space
+			hitPoint = hitPos + colliderPos;
 		}
 	}
 
@@ -59,7 +71,20 @@ void PhysicsHandler::Update()
 	{
 		// Object has collided so must reflect off of the hit surface
 		// Handling change in Velocity
+		hitNormal = glm::normalize(hitNormal);
 		ReflectVelocity(hitNormal);
+
+
+		// Moving object outside of collider
+		// Getting direction to move object
+		glm::vec3 objectPos = *gameObject->thisTransform->GetGlobalPos();
+		float objectRadius = this->gameObject->getComponent<SphereCollider>()->GetSphereSize();
+		glm::vec3 movementDirection = hitNormal;
+		movementDirection = glm::normalize(movementDirection);
+		// Applying new position
+		glm::vec3 newPos = hitPoint + movementDirection;
+		gameObject->thisTransform->SetGlobalPos(newPos);
+
 
 		// TODO: Handling Addition of Torque
 	}
@@ -117,7 +142,7 @@ glm::vec3 PhysicsHandler::GetCollidedNormal(glm::vec3 newPosition, BoxCollider* 
 		localNormal += glm::vec3(0.0f, -1.0f, 0.0f);
 	}
 	// Width
-	if (edgePos.x >= boxSize.x)
+	else if (edgePos.x >= boxSize.x)
 	{
 		localNormal += glm::vec3(1.0f, 0.0f, 0.0f);
 	}
@@ -126,7 +151,7 @@ glm::vec3 PhysicsHandler::GetCollidedNormal(glm::vec3 newPosition, BoxCollider* 
 		localNormal += glm::vec3(-1.0f, 0.0f, 0.0f);
 	}
 	// Depth
-	if (edgePos.z >= boxSize.z)
+	else if (edgePos.z >= boxSize.z)
 	{
 		localNormal += glm::vec3(0.0f, 0.0f, 1.0f);
 	}
@@ -154,6 +179,7 @@ glm::vec3 PhysicsHandler::GetCollisionPoint(glm::vec3 newPosition, BoxCollider* 
 
 	// Getting sphere position relative to rotated box
 	glm::vec3 localPos = spherePos - boxPos;
+
 	glm::vec3 rotatedLocalPos = inverse(boxRot) * localPos;
 
 	// difference between sphere center & box center
@@ -170,10 +196,13 @@ Forces Handling
 void PhysicsHandler::ReflectVelocity(glm::vec3 hitNormal)
 {
 	glm::vec3 inputVelocity = this->velocity;
+	float f = glm::length(inputVelocity);
 
 	float dotProduct = glm::dot(inputVelocity, hitNormal);
 
 	glm::vec3 outputVelocity = inputVelocity - ((2 * dotProduct) * hitNormal);
-	outputVelocity = (outputVelocity * 0.3f);
+	float l = glm::length(outputVelocity);
+
+	outputVelocity = (outputVelocity * 1.0f);
 	this->velocity = outputVelocity;
 }

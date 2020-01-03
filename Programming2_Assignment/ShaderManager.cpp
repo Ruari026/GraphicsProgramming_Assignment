@@ -1,14 +1,13 @@
 #include "ShaderManager.h"
-ShaderManager* ShaderManager::instance = NULL;
+ShaderManager* ShaderManager::instance = nullptr;
 
 ShaderManager::ShaderManager()
 {
-	instance = 0;
 }
 
 ShaderManager* ShaderManager::Instance()
 {
-	if (instance == 0)
+	if (instance == nullptr)
 	{
 		instance = new ShaderManager();
 	}

@@ -20,11 +20,11 @@ void main()
 
 
 	// Basic Lighting - Ambient
-	float ambientStrength = 0.1;
+	float ambientStrength = 0.2;
 	vec3 ambient = ambientStrength * lightColour;
 
 	// Basic Lighting - Diffuse
-	float diffuseStrength = 0.2;
+	float diffuseStrength = 0.3;
 	vec3 lightDirection = normalize(lightPos - position0);
 	float diff = max(dot(normal0, lightDirection), 0.0);
 	vec3 diffuse = diffuseStrength * diff * lightColour;
@@ -38,5 +38,5 @@ void main()
 
 	// Setting new colour
 	vec3 result = (ambient + diffuse + specular) * objectColour.xyz;
-	gl_FragColor = vec4(objectColour.xyz, 1.0);
+	gl_FragColor = vec4(result.xyz, 1.0);
 }

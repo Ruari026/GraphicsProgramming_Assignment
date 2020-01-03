@@ -4,8 +4,6 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtx/quaternion.hpp>
 
-#include <iostream>
-
 struct Transform
 {
 public:
@@ -55,21 +53,17 @@ public:
 
 			// Local Position
 			glm::vec3 localPos = *this->GetLocalPos();
+
 			// Rotated Local Position
-			glm::vec3 rotation = *parent->GetGlobalRotEuler();
-			glm::quat quarternion = glm::quat(rotation);
+			glm::quat quarternion = *parent->GetGlobalRotQuaternion();
 			glm::vec3 rotatedPos = quarternion * localPos;
 
 			glm::vec3* totalPos = &((globalPos + rotatedPos));
-
-			//std::cout << "Pos: " << totalPos->x << "," << totalPos->y << "," << totalPos->z << std::endl;
 			return totalPos;
 		}
 		else
 		{
 			glm::vec3* localPos = GetLocalPos();
-
-			//std::cout << std::endl << "Pos: " << localPos->x << "," << localPos->y << "," << localPos->z  << std::endl;
 			return localPos;
 		}
 	}
@@ -123,21 +117,10 @@ public:
 		else
 		{
 			// Parent Rotation
-			glm::vec3 parentRot = *parent->GetGlobalRotEuler();
-			glm::quat parentQuarternion = glm::quat(parentRot);
-			parentQuarternion.x = (sin(parentRot.x / 2) * cos(parentRot.y / 2) * cos(parentRot.z / 2)) + (cos(parentRot.x / 2) * sin(parentRot.y / 2) * sin(parentRot.z / 2));
-			parentQuarternion.y = (cos(parentRot.x / 2) * sin(parentRot.y / 2) * cos(parentRot.z / 2)) + (sin(parentRot.x / 2) * cos(parentRot.y / 2) * sin(parentRot.z / 2));
-			parentQuarternion.z = (cos(parentRot.x / 2) * cos(parentRot.y / 2) * sin(parentRot.z / 2)) + (sin(parentRot.x / 2) * sin(parentRot.y / 2) * cos(parentRot.z / 2));
-			parentQuarternion.w = (cos(parentRot.x / 2) * cos(parentRot.y / 2) * cos(parentRot.z / 2)) + (sin(parentRot.x / 2) * sin(parentRot.y / 2) * sin(parentRot.z / 2));
-
+			glm::quat parentQuarternion = *parent->GetGlobalRotQuaternion();
 
 			// Local Rotation
-			glm::vec3 localRot = *this->GetLocalRotEuler();
-			glm::quat localQuarternion = glm::quat(localRot);
-			localQuarternion.x = (sin(localRot.x / 2) * cos(localRot.y / 2) * cos(localRot.z / 2)) + (cos(localRot.x / 2) * sin(localRot.y / 2) * sin(localRot.z / 2));
-			localQuarternion.y = (cos(localRot.x / 2) * sin(localRot.y / 2) * cos(localRot.z / 2)) + (sin(localRot.x / 2) * cos(localRot.y / 2) * sin(localRot.z / 2));
-			localQuarternion.z = (cos(localRot.x / 2) * cos(localRot.y / 2) * sin(localRot.z / 2)) + (sin(localRot.x / 2) * sin(localRot.y / 2) * cos(localRot.z / 2));
-			localQuarternion.w = (cos(localRot.x / 2) * cos(localRot.y / 2) * cos(localRot.z / 2)) + (sin(localRot.x / 2) * sin(localRot.y / 2) * sin(localRot.z / 2));
+			glm::quat localQuarternion = *this->GetLocalRotQuaternion();
 
 			// Total Rotation
 			glm::quat totalQuarternion = localQuarternion * parentQuarternion; // !!! Order of operations is important !!!

@@ -6,11 +6,17 @@
 #include "GameScene.h"
 #include "Level1.h"
 
+#include "InputManager.h"
+
 #include "GameObject.h"
 #include "transform.h"
 #include "Time.h"
 
-enum class GameState { PLAY, EXIT };
+enum class GameState
+{ 
+	PLAY, 
+	EXIT 
+};
 
 class MainGame
 {
@@ -32,4 +38,5 @@ private:
 	GameScene* currentScene;
 
 	Time* time;
+	InputManager* inputManager;
 };

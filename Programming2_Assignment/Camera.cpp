@@ -14,13 +14,12 @@ void Camera::Init(float fov, float aspect, float zNear, float zFar)
 
 void Camera::Update()
 {
-
 }
 
 glm::mat4 Camera::GetViewProjection()
 {
 	glm::vec3 pos = *thisTransform->GetGlobalPos();
-	glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f);
+	glm::vec3 forward = glm::vec3(0.0f, -0.334f, 1.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	bool cameraPerspective = true;
