@@ -20,3 +20,9 @@ void Time::Update()
 
 	lastTick = tickTime;
 }
+
+
+float Time::GetDeltaTime()
+{
+	return Time::deltaTime;
+}

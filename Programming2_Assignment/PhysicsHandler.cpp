@@ -14,8 +14,10 @@ void PhysicsHandler::Update()
 {
 	// Position at start of update
 	glm::vec3 newPosition = *gameObject->thisTransform->GetGlobalPos();
+	glm::vec3 newRotation = *gameObject->thisTransform->GetGlobalRotEuler();
 
-	float timeStep = Time::deltaTime;
+
+	float timeStep = Time::GetDeltaTime();
 	if (timeStep > maxTimeStep)
 	{
 		timeStep = maxTimeStep;
@@ -33,6 +35,16 @@ void PhysicsHandler::Update()
 	newPosition.y = ((gravity * timeStep) / 2) + (velocity.y * timeStep) + newPosition.y;
 	newPosition.z = (newPosition.z - (velocity.z / (-1 * airResistance))) + (velocity.z / (-1 * airResistance)) * exp(-1 * airResistance * timeStep);
 	
+	// Calculating Torque
+	torque.x = ((torque.x) / (-1 * airResistance)) * (-1 * airResistance) * exp(-1 * airResistance * timeStep);
+	torque.y = ((torque.y) / (-1 * airResistance)) * (-1 * airResistance) * exp(-1 * airResistance * timeStep);
+	torque.z = ((torque.z) / (-1 * airResistance)) * (-1 * airResistance) * exp(-1 * airResistance * timeStep);
+
+	// Calculating Rotation
+	newRotation.x = (newRotation.x - (torque.x / (-1 * airResistance))) + (torque.x / (-1 * airResistance)) * exp(-1 * airResistance * timeStep);
+	newRotation.y = (newRotation.y - (torque.y / (-1 * airResistance))) + (torque.y / (-1 * airResistance)) * exp(-1 * airResistance * timeStep);
+	newRotation.z = (newRotation.z - (torque.z / (-1 * airResistance))) + (torque.z / (-1 * airResistance)) * exp(-1 * airResistance * timeStep);
+
 
 	// STEP 2 - Collision Checks
 	// Getting other colliders in the scene
@@ -46,17 +58,21 @@ void PhysicsHandler::Update()
 		if (CheckCollision(newPosition, otherColliders[i]))
 		{
 			collided = true;
-			hitNormal = GetCollidedNormal(newPosition, otherColliders[i]);
-
+			
+			// Getting the hit point on the collider
+			glm::vec3 hitPos = GetCollisionPoint(newPosition, otherColliders[i]);
 			glm::vec3 colliderPos = *otherColliders[i]->gameObject->thisTransform->GetGlobalPos();
 			glm::quat colliderRot = *otherColliders[i]->gameObject->thisTransform->GetGlobalRotQuaternion();
+			hitPos = (colliderRot * hitPos) + colliderPos;
 
-			// Getting the hit point on the collider in local space
-			glm::vec3 hitPos = GetCollisionPoint(newPosition, otherColliders[i]);
-			// rotating the hit point so that it lines up with collider's rotation
-			hitPos = colliderRot * hitPos;
-			// Getting hit point in world space
-			hitPoint = hitPos + colliderPos;
+			// Comparing against existing collision
+			float distance1 = glm::distance(newPosition, hitPoint);
+			float distance2 = glm::distance(newPosition, hitPos);
+			if (distance1 > distance2)
+			{
+				hitPoint = hitPos;
+				hitNormal = GetCollidedNormal(newPosition, otherColliders[i]);
+			}
 		}
 	}
 
@@ -65,7 +81,8 @@ void PhysicsHandler::Update()
 	if (!collided)
 	{
 		// Object can continue it's movement in it's current direction
-		gameObject->thisTransform->SetGlobalPos(newPosition);
+		gameObject->thisTransform->SetGlobalPos(newPosition); 
+		gameObject->thisTransform->SetGlobalRot(newRotation);
 	}
 	else
 	{
@@ -80,7 +97,7 @@ void PhysicsHandler::Update()
 		glm::vec3 objectPos = *gameObject->thisTransform->GetGlobalPos();
 		float objectRadius = this->gameObject->getComponent<SphereCollider>()->GetSphereSize();
 		glm::vec3 movementDirection = hitNormal;
-		movementDirection = glm::normalize(movementDirection);
+		movementDirection = glm::normalize(movementDirection) * (objectRadius + 0.05f);
 		// Applying new position
 		glm::vec3 newPos = hitPoint + movementDirection;
 		gameObject->thisTransform->SetGlobalPos(newPos);
@@ -193,6 +210,16 @@ glm::vec3 PhysicsHandler::GetCollisionPoint(glm::vec3 newPosition, BoxCollider* 
 Forces Handling
 ====================================================================================================
 */
+glm::vec3* PhysicsHandler::GetVelocity()
+{
+	return &this->velocity;
+}
+
+void PhysicsHandler::SetVelocity(glm::vec3 newVelocity)
+{
+	this->velocity = newVelocity;
+}
+
 void PhysicsHandler::ReflectVelocity(glm::vec3 hitNormal)
 {
 	glm::vec3 inputVelocity = this->velocity;

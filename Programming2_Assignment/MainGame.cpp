@@ -5,21 +5,22 @@
 MainGame::MainGame()
 {
 	_gameState = GameState::PLAY;
-	_gameDisplay = new Display(1024, 1024); //new display
+	_gameDisplay = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT); //new display
 
-	// Timer
+	// Game Managers
 	time = new Time();
 	inputManager = InputManager::Instance();
-
-	currentScene = new Level1(_gameDisplay);
+	sceneManager = SceneManager::Instance();
 }
 MainGame::~MainGame()
 { 
 }
 
 
-void MainGame::run()
+void MainGame::runGame()
 {
+	sceneManager->LoadScene("Level1");
+
 	gameLoop();
 }
 
@@ -38,9 +39,8 @@ void MainGame::gameLoop()
 
 void MainGame::processInput()
 {
+	// Handing whether the game is currently being quit
 	inputManager->HandleInput();
-
-	// Quitting the game
 	if (inputManager->IsQuittingGame())
 	{
 		_gameState = GameState::EXIT;
@@ -52,7 +52,7 @@ void MainGame::drawGame()
 {
 	_gameDisplay->clearDisplay(0.0f, 1.0f, 1.0f, 1.0f);
 
-	currentScene->RunScene();
+	sceneManager->currentScene->RunScene();
 
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnd();

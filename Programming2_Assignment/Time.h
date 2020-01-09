@@ -4,14 +4,14 @@
 class Time
 {
 public:
-
-	static float deltaTime;
-
 	Time();
 	~Time();
 
 	void Update();
 
+	static float GetDeltaTime();
+
 private:
 	uint32_t lastTick;
+	static float deltaTime;
 };

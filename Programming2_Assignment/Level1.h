@@ -3,6 +3,5 @@
 class Level1 : public GameScene
 {
 public:
-	Level1(Display* _GameDisplay);
+	Level1();
 };
-

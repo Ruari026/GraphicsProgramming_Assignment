@@ -1,52 +1,60 @@
 #include "Display.h"
 
-
 Display::Display(float width, float height)
 {
 	sdlWindow = nullptr; //initialise to generate null access violation for debugging. 
-	screenWidth = width;
-	screenHeight = height;
+	
+	// Initalising SDL
+	SDL_Init(SDL_INIT_EVERYTHING);
 
-	SDL_Init(SDL_INIT_EVERYTHING); //initalise everything
-
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8); //Min no of bits used to diplay colour
+	//Min no of bits used to diplay colour
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); // set up double buffer   
 
-	sdlWindow = SDL_CreateWindow("Game Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)screenWidth, (int)screenHeight, SDL_WINDOW_OPENGL); // create window
+	// set up double buffer   
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
+	// Window Creation
+	sdlWindow = SDL_CreateWindow("Super Polaroid Ball", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)width, (int)height, SDL_WINDOW_OPENGL);
 	if (sdlWindow == nullptr)
 	{
 		returnError("window failed to create");
 	}
 
+	// Context Creation from Window
 	glContext = SDL_GL_CreateContext(sdlWindow);
-
 	if (glContext == nullptr)
 	{
 		returnError("SDL_GL context failed to create");
 	}
 
+	// Initalising GLEW
 	GLenum error = glewInit();
 	if (error != GLEW_OK)
 	{
 		returnError("GLEW failed to initialise");
 	}
 
-	glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
-
+	// Settings for rendering blending
 	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glEnable(GL_DEPTH_TEST); //enable z-buffering 
-	glEnable(GL_CULL_FACE); //dont draw faces that are not pointing at the camera
+
+	//Settings for rendering depth buffering & overlap
+	glEnable(GL_DEPTH_TEST); 
+	glDepthFunc(GL_LEQUAL); //specifying how OpenGL compares depth values
+
+
+	//dont draw faces that are not pointing at the camera
+	glEnable(GL_CULL_FACE); 
 }
 
 Display::~Display()
 {
-	SDL_GL_DeleteContext(glContext); // delete context
-	SDL_DestroyWindow(sdlWindow); // detete window (make sure to delete the context and the window in the opposite order of creation in initDisplay())
+	SDL_GL_DeleteContext(glContext); // deleting context
+	SDL_DestroyWindow(sdlWindow); // deteting window
 	SDL_Quit();
 }
 
@@ -61,21 +69,12 @@ void Display::returnError(std::string errorString)
 
 void Display::swapBuffer()
 {
-	SDL_GL_SwapWindow(sdlWindow); //swap buffers
+	//swapping buffers
+	SDL_GL_SwapWindow(sdlWindow);
 }
 
 void Display::clearDisplay(float r, float g, float b, float a)
 {
 	glClearColor(r, b, b, a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear colour and depth buffer - set colour to colour defined in glClearColor
-}
-
-float Display::getWidth()
-{
-	return this->screenWidth;
-}
-
-float Display::getHeight()
-{
-	return this->screenHeight;
 }

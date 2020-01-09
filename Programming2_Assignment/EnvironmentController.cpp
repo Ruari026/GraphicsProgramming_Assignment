@@ -17,20 +17,20 @@ void EnvironmentController::Update()
 	// Vertical input
 	if (inputManager->IsKeyPressedDown(SDLK_w))
 	{
-		environmentRotation.x += (rotationSpeed * Time::deltaTime);
+		environmentRotation.x += (rotationSpeed * Time::GetDeltaTime());
 	}
 	else if (inputManager->IsKeyPressedDown(SDLK_s))
 	{
-		environmentRotation.x -= (rotationSpeed * Time::deltaTime);
+		environmentRotation.x -= (rotationSpeed * Time::GetDeltaTime());
 	}
 	// Horizontal input
 	if (inputManager->IsKeyPressedDown(SDLK_d))
 	{
-		environmentRotation.z += (rotationSpeed * Time::deltaTime);
+		environmentRotation.z += (rotationSpeed * Time::GetDeltaTime());
 	}
 	else if (inputManager->IsKeyPressedDown(SDLK_a))
 	{
-		environmentRotation.z -= (rotationSpeed * Time::deltaTime);
+		environmentRotation.z -= (rotationSpeed * Time::GetDeltaTime());
 	}
 
 

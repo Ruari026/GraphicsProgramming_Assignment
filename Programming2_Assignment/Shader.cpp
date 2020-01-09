@@ -34,8 +34,6 @@ Shader::Shader(const std::string& filename)
 	uniforms[TRANSFORM_U] = glGetUniformLocation(program, "transform"); // associate with the location of uniform variable within a program
 	uniforms[PROJECTION_U] = glGetUniformLocation(program, "projection");
 }
-
-
 Shader::~Shader()
 {
 	for (unsigned int i = 0; i < NUM_SHADERS; i++)
@@ -46,10 +44,12 @@ Shader::~Shader()
 	glDeleteProgram(program); // delete the program
 }
 
+
 void Shader::Bind()
 {
 	glUseProgram(program); //installs the program object specified by program as part of rendering state
 }
+
 
 void Shader::Update(Transform& transform, Camera& camera)
 {
@@ -84,6 +84,7 @@ GLuint Shader::CreateShader(const std::string& text, unsigned int type)
 	return shader;
 }
 
+
 std::string Shader::LoadShader(const std::string& fileName)
 {
 	std::ifstream file;
@@ -107,6 +108,7 @@ std::string Shader::LoadShader(const std::string& fileName)
 
 	return output;
 }
+
 
 void Shader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage)
 {

@@ -54,7 +54,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glew32.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_ttf.lib;opengl32.lib;glew32.lib;OpenAL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)deps/include/;$(SolutionDir)deps/lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,66 +73,90 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\res\shader.frag" />
-    <None Include="..\res\shader.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Audio.h" />
+    <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="AudioPlayer.h" />
+    <ClInclude Include="BallController.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="CameraMount.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="EndPlate.h" />
     <ClInclude Include="EnvironmentController.h" />
     <ClInclude Include="Fence.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="FontManager.h" />
+    <ClInclude Include="FontRenderer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Level1.h" />
+    <ClInclude Include="Level2.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="obj_loader.h" />
     <ClInclude Include="PhysicsHandler.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayerBall.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SphereCollider.h" />
+    <ClInclude Include="StartPlate.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="TestLevel.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="transform.h" />
+    <ClInclude Include="Well.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="AudioPlayer.cpp" />
+    <ClCompile Include="BallController.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraMount.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="EndPlate.cpp" />
     <ClCompile Include="EnvironmentController.cpp" />
     <ClCompile Include="Fence.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level1.cpp" />
+    <ClCompile Include="Level2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshManager.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="PhysicsHandler.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlayerBall.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
+    <ClCompile Include="StartPlate.cpp" />
     <ClCompile Include="stb_image.c" />
+    <ClCompile Include="TestLevel.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Well.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\res\meshShader.frag" />
+    <None Include="..\res\meshShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

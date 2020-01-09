@@ -15,7 +15,7 @@ public:
 
 private:
 	const float rotationSpeed = (3.14f / 4.0f);
-	const float rotationLimit = (3.14f / 6.0f);
+	const float rotationLimit = (3.14f / 8.0f);
 
 	InputManager* inputManager;
 };

@@ -3,8 +3,8 @@
 Platform::Platform(GameScene* scene) : GameObject(scene)
 {
 	// Renderer
-	Renderer* renderer = this->addComponent<Renderer>();
-	renderer->Init("..\\res\\Tile_Crossroads.obj", "..\\res\\Environment.png", "..\\res\\shader");
+	MeshRenderer* renderer = this->addComponent<MeshRenderer>();
+	renderer->Init("..\\res\\Tile_Crossroads.obj", "..\\res\\Environment.png", "..\\res\\meshShader");
 
 	// Collider
 	BoxCollider* collider = this->addComponent<BoxCollider>();

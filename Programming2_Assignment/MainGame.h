@@ -4,9 +4,9 @@
 #include "Display.h" 
 
 #include "GameScene.h"
-#include "Level1.h"
 
 #include "InputManager.h"
+#include "SceneManager.h"
 
 #include "GameObject.h"
 #include "transform.h"
@@ -24,7 +24,7 @@ public:
 	MainGame();
 	~MainGame();
 
-	void run();
+	void runGame();
 
 private:
 
@@ -35,8 +35,7 @@ private:
 	Display* _gameDisplay;
 	GameState _gameState;
 
-	GameScene* currentScene;
-
 	Time* time;
 	InputManager* inputManager;
+	SceneManager* sceneManager;
 };

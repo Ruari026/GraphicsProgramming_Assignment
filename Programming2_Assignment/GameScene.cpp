@@ -1,7 +1,14 @@
 #include "GameScene.h"
 
-GameScene::GameScene(Display* _gameDisplay)
+GameScene::GameScene()
 {
+}
+GameScene::~GameScene()
+{
+	for (int i = 0; i < sceneGameObjects.size(); i++)
+	{
+		delete sceneGameObjects[i];
+	}
 }
 
 void GameScene::RunScene()

@@ -37,9 +37,6 @@ public:
 	void initModel(const IndexedModel& model);
 
 private:
-
-
-
 	enum
 	{
 		POSITION_VERTEXBUFFER,

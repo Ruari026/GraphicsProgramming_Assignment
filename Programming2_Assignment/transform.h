@@ -53,13 +53,33 @@ public:
 
 			// Local Position
 			glm::vec3 localPos = *this->GetLocalPos();
+			glm::vec3 totalPos = globalPos + localPos;
 
 			// Rotated Local Position
-			glm::quat quarternion = *parent->GetGlobalRotQuaternion();
-			glm::vec3 rotatedPos = quarternion * localPos;
+			glm::vec3 eulerRotation = *this->GetGlobalRotEuler();
 
-			glm::vec3* totalPos = &((globalPos + rotatedPos));
-			return totalPos;
+			glm::vec3 eulerRotationX = glm::vec3(eulerRotation.x, 0.0f, 0.0f);
+			glm::vec3 eulerRotationY = glm::vec3(0.0f, eulerRotation.y, 0.0f);
+			glm::vec3 eulerRotationZ = glm::vec3(0.0f, 0.0f, eulerRotation.z);
+
+			glm::quat quaternionX = glm::quat();
+			quaternionX.x = (sin(eulerRotationX.x / 2) * cos(eulerRotationX.y / 2) * cos(eulerRotationX.z / 2)) + (cos(eulerRotationX.x / 2) * sin(eulerRotationX.y / 2) * sin(eulerRotationX.z / 2));
+			quaternionX.y = (cos(eulerRotationX.x / 2) * sin(eulerRotationX.y / 2) * cos(eulerRotationX.z / 2)) + (sin(eulerRotationX.x / 2) * cos(eulerRotationX.y / 2) * sin(eulerRotationX.z / 2));
+			quaternionX.z = (cos(eulerRotationX.x / 2) * cos(eulerRotationX.y / 2) * sin(eulerRotationX.z / 2)) + (sin(eulerRotationX.x / 2) * sin(eulerRotationX.y / 2) * cos(eulerRotationX.z / 2));
+			quaternionX.w = (cos(eulerRotationX.x / 2) * cos(eulerRotationX.y / 2) * cos(eulerRotationX.z / 2)) + (sin(eulerRotationX.x / 2) * sin(eulerRotationX.y / 2) * sin(eulerRotationX.z / 2));
+			glm::quat quaternionY = glm::quat();
+			quaternionY.x = (sin(eulerRotationY.x / 2) * cos(eulerRotationY.y / 2) * cos(eulerRotationY.z / 2)) + (cos(eulerRotationY.x / 2) * sin(eulerRotationY.y / 2) * sin(eulerRotationY.z / 2));
+			quaternionY.y = (cos(eulerRotationY.x / 2) * sin(eulerRotationY.y / 2) * cos(eulerRotationY.z / 2)) + (sin(eulerRotationY.x / 2) * cos(eulerRotationY.y / 2) * sin(eulerRotationY.z / 2));
+			quaternionY.z = (cos(eulerRotationY.x / 2) * cos(eulerRotationY.y / 2) * sin(eulerRotationY.z / 2)) + (sin(eulerRotationY.x / 2) * sin(eulerRotationY.y / 2) * cos(eulerRotationY.z / 2));
+			quaternionY.w = (cos(eulerRotationY.x / 2) * cos(eulerRotationY.y / 2) * cos(eulerRotationY.z / 2)) + (sin(eulerRotationY.x / 2) * sin(eulerRotationY.y / 2) * sin(eulerRotationY.z / 2));
+			glm::quat quaternionZ = glm::quat();
+			quaternionZ.x = (sin(eulerRotationZ.x / 2) * cos(eulerRotationZ.y / 2) * cos(eulerRotationZ.z / 2)) + (cos(eulerRotationZ.x / 2) * sin(eulerRotationZ.y / 2) * sin(eulerRotationZ.z / 2));
+			quaternionZ.y = (cos(eulerRotationZ.x / 2) * sin(eulerRotationZ.y / 2) * cos(eulerRotationZ.z / 2)) + (sin(eulerRotationZ.x / 2) * cos(eulerRotationZ.y / 2) * sin(eulerRotationZ.z / 2));
+			quaternionZ.z = (cos(eulerRotationZ.x / 2) * cos(eulerRotationZ.y / 2) * sin(eulerRotationZ.z / 2)) + (sin(eulerRotationZ.x / 2) * sin(eulerRotationZ.y / 2) * cos(eulerRotationZ.z / 2));
+			quaternionZ.w = (cos(eulerRotationZ.x / 2) * cos(eulerRotationZ.y / 2) * cos(eulerRotationZ.z / 2)) + (sin(eulerRotationZ.x / 2) * sin(eulerRotationZ.y / 2) * sin(eulerRotationZ.z / 2));
+
+			glm::vec3* rotatedPos = &(quaternionX * quaternionZ * quaternionY * totalPos);
+			return rotatedPos;
 		}
 		else
 		{
@@ -100,13 +120,13 @@ public:
 	{
 		glm::vec3 eulerAngles = *GetLocalRotEuler();
 
-		glm::quat* quaternion = new glm::quat();
-		quaternion->x = (sin(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (cos(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
-		quaternion->y = (cos(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
-		quaternion->z = (cos(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * sin(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * cos(eulerAngles.z / 2));
-		quaternion->w = (cos(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
+		glm::quat quaternion = glm::quat();
+		quaternion.x = (sin(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (cos(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
+		quaternion.y = (cos(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
+		quaternion.z = (cos(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * sin(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * cos(eulerAngles.z / 2));
+		quaternion.w = (cos(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
 
-		return quaternion;
+		return &quaternion;
 	}
 	inline glm::vec3* GetGlobalRotEuler()
 	{
@@ -116,16 +136,18 @@ public:
 		}
 		else
 		{
-			// Parent Rotation
+			/*// Parent Rotation
 			glm::quat parentQuarternion = *parent->GetGlobalRotQuaternion();
-
 			// Local Rotation
 			glm::quat localQuarternion = *this->GetLocalRotQuaternion();
-
 			// Total Rotation
-			glm::quat totalQuarternion = localQuarternion * parentQuarternion; // !!! Order of operations is important !!!
-			glm::vec3 totalRot = glm::eulerAngles(totalQuarternion);
+			glm::quat totalQuarternion = parentQuarternion * localQuarternion;
+			glm::vec3 totalRot = glm::eulerAngles(totalQuarternion);*/
 
+			glm::vec3 parentRot = *parent->GetGlobalRotEuler();
+			glm::vec3 localRot = *this->GetLocalRotEuler();
+
+			glm::vec3 totalRot = parentRot + localRot;
 			return &totalRot;
 		}
 	}
@@ -133,13 +155,13 @@ public:
 	{
 		glm::vec3 eulerAngles = *GetGlobalRotEuler();
 
-		glm::quat* quaternion = new glm::quat();
-		quaternion->x = (sin(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (cos(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
-		quaternion->y = (cos(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
-		quaternion->z = (cos(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * sin(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * cos(eulerAngles.z / 2));
-		quaternion->w = (cos(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
+		glm::quat quaternion = glm::quat();
+		quaternion.x = (sin(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (cos(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
+		quaternion.y = (cos(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
+		quaternion.z = (cos(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * sin(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * cos(eulerAngles.z / 2));
+		quaternion.w = (cos(eulerAngles.x / 2) * cos(eulerAngles.y / 2) * cos(eulerAngles.z / 2)) + (sin(eulerAngles.x / 2) * sin(eulerAngles.y / 2) * sin(eulerAngles.z / 2));
 
-		return quaternion;
+		return &quaternion;
 	}
 	// Setters
 	inline void SetLocalRot(glm::vec3& rot)
