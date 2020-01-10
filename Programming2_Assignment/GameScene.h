@@ -3,6 +3,7 @@
 #include "Display.h"
 
 #include "Component.h"
+#include "AudioPlayer.h"
 #include "BallController.h"
 #include "BoxCollider.h"
 #include "camera.h"

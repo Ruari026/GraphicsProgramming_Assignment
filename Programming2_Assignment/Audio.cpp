@@ -1,22 +1,71 @@
 #include "Audio.h"
 
 
-Audio::Audio()
+Audio::Audio(const char* filename)
 {
 	device = alcOpenDevice(NULL); //open sound card
 	if (device == NULL)
 	{
 		std::cout << "cannot open sound card" << std::endl;
 	}
-
 	context = alcCreateContext(device, NULL);
 
 	if (context == NULL)
 	{
 		std::cout << "cannot open context" << std::endl;
 	}
-
 	alcMakeContextCurrent(context);
+
+
+	bool found = false;
+	unsigned int sourceID, bufferID;
+	char* soundData = NULL;
+	for (unsigned int i = 0; i < datas.size(); i++)
+	{
+		if (datas[i].name == filename && datas[i].bufferID != -1)
+		{
+			bufferID = datas[i].bufferID;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		int channel, sampleRate, bps, size;
+		soundData = loadWAV(filename, channel, sampleRate, bps, size);
+		unsigned int format;
+		alGenBuffers(1, &bufferID);
+
+		if (channel == 1)
+		{
+			if (bps == 8)
+			{
+				format = AL_FORMAT_MONO8;
+			}
+			else
+			{
+				format = AL_FORMAT_MONO16;
+			}
+		}
+		else
+		{
+			if (bps == 8)
+			{
+				format = AL_FORMAT_STEREO8;
+			}
+			else
+			{
+				format = AL_FORMAT_STEREO16;
+			}
+
+		}
+
+		alBufferData(bufferID, format, soundData, size, sampleRate);
+	}
+	alGenSources(1, &sourceID);
+	alSourcei(sourceID, AL_BUFFER, bufferID);
+	alSourcef(sourceID, AL_REFERENCE_DISTANCE, 1.0f);
+	datas.push_back(data(sourceID, (!found ? bufferID : -1), soundData, filename));
 }
 
 Audio::~Audio()
@@ -78,63 +127,6 @@ char* Audio::loadWAV(const char* fn, int& chan, int& samplerate, int& bps, int& 
 	in.read(soundData, size);
 	return soundData;
 }
-
-unsigned int Audio::loadSound(const char* filename)
-{
-	bool found = false;
-	unsigned int sourceID, bufferID;
-	char* soundData = NULL;
-	for (unsigned int i = 0; i < datas.size(); i++)
-	{
-		if (datas[i].name == filename && datas[i].bufferID != -1)
-		{
-			bufferID = datas[i].bufferID;
-			found = true;
-			break;
-		}
-	}
-	if(!found)
-		{	
-			int channel, sampleRate, bps, size;
-			soundData = loadWAV(filename, channel, sampleRate, bps, size);
-			unsigned int format;
-			alGenBuffers(1, &bufferID);
-
-			if (channel == 1)
-			{
-				if (bps == 8)
-				{
-					format = AL_FORMAT_MONO8;
-				}
-				else
-				{
-					format = AL_FORMAT_MONO16;
-				}
-			}
-			else
-			{
-				if (bps == 8)
-				{
-					format = AL_FORMAT_STEREO8;
-				}
-				else
-				{
-					format = AL_FORMAT_STEREO16;
-				}
-
-			}
-
-			alBufferData(bufferID, format, soundData, size, sampleRate);
-		}
-	alGenSources(1, &sourceID);
-	alSourcei(sourceID, AL_BUFFER, bufferID);
-	alSourcef(sourceID, AL_REFERENCE_DISTANCE, 1.0f);
-	datas.push_back(data(sourceID, (!found ? bufferID : -1), soundData, filename));
-	return sourceID;
-}
-
-void Audio::deleteSound(unsigned int id) 
-{}
 
 void Audio::playSound(unsigned int id) 
 {

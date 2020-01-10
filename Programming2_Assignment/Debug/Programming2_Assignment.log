@@ -1,6 +1,7 @@
 ﻿  Level1.cpp
-C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Programming2_Assignment\BallController.h(4,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
-C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Programming2_Assignment\GameObject.h(72,21): warning C4018:  '<': signed/unsigned mismatch
-C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Programming2_Assignment\transform.h(82): warning C4172:  returning address of local variable or temporary
-C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Programming2_Assignment\transform.h(151): warning C4172:  returning address of local variable or temporary: totalRot
-  Programming2_Assignment.vcxproj -> C:\Users\Ruari\Documents\GitHub\Programming2_Assignment\Debug\Coursework.exe
+c:\users\ruari\documents\github\programming2_assignment\programming2_assignment\ballcontroller.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\ruari\documents\github\programming2_assignment\programming2_assignment\gameobject.h(72): warning C4018: '<': signed/unsigned mismatch
+c:\users\ruari\documents\github\programming2_assignment\programming2_assignment\transform.h(82): warning C4172: returning address of local variable or temporary
+c:\users\ruari\documents\github\programming2_assignment\programming2_assignment\transform.h(151): warning C4172: returning address of local variable or temporary: totalRot
+  Programming2_Assignment.vcxproj -> C:\Users\ruari\Documents\GitHub\Programming2_Assignment\Debug\Coursework.exe
+  Programming2_Assignment.vcxproj -> C:\Users\ruari\Documents\GitHub\Programming2_Assignment\Debug\Coursework.pdb (Full PDB)

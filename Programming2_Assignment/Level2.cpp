@@ -25,8 +25,8 @@ Level2::Level2() : GameScene()
 
 
 	// Environment - Starting Platform
-	glm::vec3 environmentCenter = glm::vec3(0.0f, 0.0f, 12.0f);
-	int environmentWidth = 3, environmentHeight = 8;
+	glm::vec3 environmentCenter = glm::vec3(0.0f, 0.0f, 0.0f);
+	int environmentWidth = 6, environmentHeight = 6;
 	for (int i = 0; i < environmentHeight; i++)
 	{
 		// Platform Ground
@@ -73,13 +73,6 @@ Level2::Level2() : GameScene()
 	sceneGameObjects.push_back(startPoint);
 	startPoint->thisTransform->SetParent(anchorParent->thisTransform);
 	startPoint->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.1f, 0.0f));
-
-
-	// Environment - End Point
-	EndPlate* endPoint = new EndPlate(this);
-	sceneGameObjects.push_back(endPoint);
-	endPoint->thisTransform->SetParent(anchorParent->thisTransform);
-	endPoint->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.1f, 24.0f));
 
 
 	// Player Ball

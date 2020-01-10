@@ -108,5 +108,13 @@ Level1::Level1() : GameScene()
 	FontRenderer* fr = textTest->addComponent<FontRenderer>();
 	fr->Init("..\\res\\Cartoon.ttf", 12);
 	fr->setTextWrapLength(DISPLAY_WIDTH / 4);
-	fr->SetFontText("CONTROLS:               WASD - Tilt Level      1-5 - Change Scene");
+	fr->SetFontText("CONTROLS:               WASD - Tilt Level      1-2 - Change Scene");
+
+
+	// Audio
+	GameObject* audioObject = new GameObject(this);
+	sceneGameObjects.push_back(audioObject);
+	AudioPlayer* audioSource = audioObject->addComponent<AudioPlayer>();
+	audioSource->Init("..\\res\\background.wav");
+	audioSource->PlayAudio();
 }

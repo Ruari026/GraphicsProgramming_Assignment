@@ -39,10 +39,8 @@ class Audio
 	char* loadWAV(const char* fn, int& chan, int& samplerate, int& bps, int& size);
 
 public:
-	Audio();
+	Audio(const char* filename);
 	~Audio();
-	unsigned int loadSound(const char* filename);
-	void deleteSound(unsigned int id);
 	void playSound(unsigned int id);
 	void playSound(unsigned int id, glm::vec3& pos);
 	void stopSound(unsigned int id);
