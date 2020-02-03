@@ -15,12 +15,6 @@
 #include "SphereCollider.h"
 
 #include "GameObject.h"
-#include "EndPlate.h"
-#include "Fence.h"
-#include "Platform.h"
-#include "PlayerBall.h"
-#include "StartPlate.h"
-#include "Well.h"
 
 class GameScene
 {
