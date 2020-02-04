@@ -1,29 +1,32 @@
 #version 400
-out vec4 FragColor;
-in vec3 v_norm;
 in vec4 v_pos; 
+in vec2 v_texCoord;
+in vec3 v_norm;
 
-uniform vec3 fogColor;
+uniform mat4 transform;
+uniform mat4 projection;
 
-//uniform mat4 u_pm; // uniform_ProjectionMatrix
-//uniform mat4 u_vm; // uniform_ViewMatrix
+// Object Details
+uniform sampler2D diffuse;
 
-
+// Fog Details
+uniform vec4 fogColor;
 uniform float maxDist; //fog max distance
 uniform float minDist; //fog min distance
 
+// Camera Details
+uniform vec3 cam_pos;
 
 void main() 
 {
-	float dist = abs( v_pos.z );
+	float dist = distance(v_pos.xyz, cam_pos);
+	dist = v_pos.z;
 
 	float fogFactor = (maxDist - dist)/(maxDist - minDist);
-	fogFactor = clamp( fogFactor, 0.0, 1.0 );
+	fogFactor = clamp(fogFactor, 0.0, 1.0);
 
-	vec3 lightColor = vec3(0.5,0.0,0.0);
+	vec4 color = texture2D(diffuse, v_texCoord);
+	color = mix(fogColor, color, fogFactor);
 
-	vec3 color = mix( fogColor, lightColor, fogFactor);
-
-	FragColor = vec4(color, 1.0);
-
+	gl_FragColor = vec4(color.xyz, 1.0);
 }

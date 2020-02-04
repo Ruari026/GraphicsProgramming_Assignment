@@ -11,7 +11,7 @@ Display::Display(float width, float height)
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// Window Creation
-	sdlWindow = SDL_CreateWindow("Super Polaroid Ball", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)width, (int)height, SDL_WINDOW_OPENGL);
+	sdlWindow = SDL_CreateWindow("Graphics Programming 2020", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (int)width, (int)height, SDL_WINDOW_OPENGL);
 	if (sdlWindow == nullptr)
 	{
 		returnError("window failed to create");

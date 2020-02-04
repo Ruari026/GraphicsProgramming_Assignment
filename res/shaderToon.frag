@@ -1,18 +1,18 @@
 #version 400
 
-uniform vec3 lightDir = vec3(0, 0, 0);
+uniform vec3 lightDir;
 
 varying vec2 texCoord;
 varying vec3 normal;
 
 uniform sampler2D diffuse;
+uniform mat4 transform;
 
 void main()
 {
 	vec4 color = texture2D(diffuse, texCoord);
 
-	float intensity;
-	intensity = dot(lightDir, normal);
+	float intensity = dot(lightDir, normal);
 
 	if (intensity > 0.75)
 		color *= 1.0;
