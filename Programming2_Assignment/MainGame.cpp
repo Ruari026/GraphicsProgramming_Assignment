@@ -19,7 +19,7 @@ MainGame::~MainGame()
 
 void MainGame::runGame()
 {
-	sceneManager->LoadScene("Level1");
+	sceneManager->LoadScene("TestLevel");
 
 	gameLoop();
 }

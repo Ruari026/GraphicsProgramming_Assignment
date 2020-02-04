@@ -102,17 +102,8 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="EnvironmentController.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraMount.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="BallController.h">
-      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Header Files</Filter>
@@ -125,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="AudioPlayer.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLevel.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -185,17 +179,8 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="EnvironmentController.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraMount.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="BallController.cpp">
-      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Source Files</Filter>
@@ -209,12 +194,27 @@
     <ClCompile Include="AudioPlayer.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="TestLevel.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\meshShader.frag">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\res\meshShader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\fogShader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\fogShader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderToon.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\shaderToon.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

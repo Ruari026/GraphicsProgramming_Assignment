@@ -75,13 +75,10 @@
   <ItemGroup>
     <ClInclude Include="Audio.h" />
     <ClInclude Include="AudioPlayer.h" />
-    <ClInclude Include="BallController.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="CameraMount.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Display.h" />
-    <ClInclude Include="EnvironmentController.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FontRenderer.h" />
     <ClInclude Include="GameObject.h" />
@@ -98,6 +95,7 @@
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="TestLevel.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Time.h" />
@@ -106,12 +104,9 @@
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="AudioPlayer.cpp" />
-    <ClCompile Include="BallController.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraMount.cpp" />
     <ClCompile Include="Display.cpp" />
-    <ClCompile Include="EnvironmentController.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FontRenderer.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -128,13 +123,18 @@
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="stb_image.c" />
+    <ClCompile Include="TestLevel.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\res\fogShader.frag" />
+    <None Include="..\res\fogShader.vert" />
     <None Include="..\res\meshShader.frag" />
     <None Include="..\res\meshShader.vert" />
+    <None Include="..\res\shaderToon.frag" />
+    <None Include="..\res\shaderToon.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

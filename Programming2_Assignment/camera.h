@@ -14,10 +14,14 @@ public:
 
 	void Update();
 	glm::mat4 GetViewProjection();
+	glm::mat4 GetViewMatrix();
+	glm::mat4 GetProjectionMatrix();
+
 
 	Transform* thisTransform;
 
 private:
+	bool cameraPerspective;
 	glm::mat4 perspectiveProjection;
 	glm::mat4 orthographicProjection;
 };

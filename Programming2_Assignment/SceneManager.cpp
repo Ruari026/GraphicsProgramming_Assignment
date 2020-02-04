@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 
+#include "TestLevel.h"
 
 /*
 ====================================================================================================
@@ -28,5 +29,8 @@ Game Scene Changing
 */
 void SceneManager::LoadScene(std::string newSceneName)
 {
-
+	if (newSceneName == "TestLevel")
+	{
+		currentScene = new TestLevel();
+	}
 }

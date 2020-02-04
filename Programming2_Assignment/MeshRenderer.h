@@ -18,6 +18,10 @@ public:
 
 	void Init(std::string meshFileName, std::string textureFileName, std::string shaderFileName);
 
+	Mesh* GetMesh();
+	Texture* GetTexture();
+	Shader* GetShader();
+
 private:
 
 	Camera* camera;

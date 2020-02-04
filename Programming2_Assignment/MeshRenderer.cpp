@@ -25,3 +25,18 @@ void MeshRenderer::Update()
 	mesh->draw();
 	glUseProgram(0);
 }
+
+Mesh* MeshRenderer::GetMesh()
+{
+	return this->mesh;
+}
+
+Texture* MeshRenderer::GetTexture()
+{
+	return this->texture;
+}
+
+Shader* MeshRenderer::GetShader()
+{
+	return this->shader;
+}

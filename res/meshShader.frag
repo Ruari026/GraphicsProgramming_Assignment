@@ -1,4 +1,4 @@
-#version 330
+#version 400
 
 varying vec3 position0;
 varying vec2 texCoord0;
