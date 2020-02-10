@@ -28,7 +28,7 @@ TestLevel::TestLevel() : GameScene()
 
 	// Transform
 	meshGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 0.0f));
-	meshGameObject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.83f), 0.0f));
+	meshGameObject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.75f), 0.0f));
 
 
 
@@ -38,7 +38,7 @@ TestLevel::TestLevel() : GameScene()
 	====================================================================================================
 	*/
 	// Setting What Shader To Use
-	ShaderType shaderType = ShaderType::TOON_SHADER;
+	ShaderType shaderType = ShaderType::MESH_SHADER;
 
 
 	// Initalising Renderer Shaders
@@ -62,6 +62,12 @@ TestLevel::TestLevel() : GameScene()
 			renderer->Init("..\\res\\monkey3.obj", "..\\res\\bricks.jpg", "..\\res\\shaderToon");
 		}
 		break;
+
+		case (ShaderType::RIM_SHADER):
+		{
+			renderer->Init("..\\res\\monkey3.obj", "..\\res\\bricks.jpg", "..\\res\\rimShader");
+		}
+		break;
 	}
 	
 
@@ -82,6 +88,13 @@ TestLevel::TestLevel() : GameScene()
 		case (ShaderType::TOON_SHADER):
 		{
 			shader->setVec3("lightDir", glm::vec3(0.0f, 0.0f, -1.0f));
+		}
+		break;
+
+		case (ShaderType::RIM_SHADER):
+		{
+			shader->setVec3("cameraPos", *sceneCamera->thisTransform->GetGlobalPos());
+			shader->setFloat("rimSize", 0.5f);
 		}
 		break;
 	}

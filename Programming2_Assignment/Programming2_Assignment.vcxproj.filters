@@ -217,5 +217,11 @@
     <None Include="..\res\shaderToon.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\res\rimShader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\res\rimShader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@ private:
 	{
 		MESH_SHADER,
 		FOG_SHADER,
-		TOON_SHADER
+		TOON_SHADER,
+		RIM_SHADER
 	};
 };

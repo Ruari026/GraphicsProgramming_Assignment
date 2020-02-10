@@ -133,6 +133,8 @@
     <None Include="..\res\fogShader.vert" />
     <None Include="..\res\meshShader.frag" />
     <None Include="..\res\meshShader.vert" />
+    <None Include="..\res\rimShader.frag" />
+    <None Include="..\res\rimShader.vert" />
     <None Include="..\res\shaderToon.frag" />
     <None Include="..\res\shaderToon.vert" />
   </ItemGroup>
