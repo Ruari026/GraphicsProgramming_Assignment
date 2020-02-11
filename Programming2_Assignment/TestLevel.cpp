@@ -38,38 +38,42 @@ TestLevel::TestLevel() : GameScene()
 	====================================================================================================
 	*/
 	// Setting What Shader To Use
-	ShaderType shaderType = ShaderType::MESH_SHADER;
+	ShaderType shaderType = ShaderType::RIM_SHADER;
 
 
 	// Initalising Renderer Shaders
 	MeshRenderer* renderer = meshGameObject->addComponent<MeshRenderer>();
+	string meshFilePath = "..\\res\\monkey3.obj";
+	string textureFilePath = "..\\res\\bricks.jpg";
+	string shaderFilePath = "";
 	switch (shaderType)
 	{
 		case (ShaderType::MESH_SHADER):
 		{
-			renderer->Init("..\\res\\monkey3.obj", "..\\res\\bricks.jpg", "..\\res\\meshShader");
+			shaderFilePath = "..\\res\\meshShader";
 		}
 		break;
 
 		case (ShaderType::FOG_SHADER):
 		{
-			renderer->Init("..\\res\\monkey3.obj", "..\\res\\bricks.jpg", "..\\res\\fogShader");
+			shaderFilePath = "..\\res\\fogShader";
 		}
 		break;
 
 		case (ShaderType::TOON_SHADER):
 		{
-			renderer->Init("..\\res\\monkey3.obj", "..\\res\\bricks.jpg", "..\\res\\shaderToon");
+			shaderFilePath = "..\\res\\shaderToon";
 		}
 		break;
 
 		case (ShaderType::RIM_SHADER):
 		{
-			renderer->Init("..\\res\\monkey3.obj", "..\\res\\bricks.jpg", "..\\res\\rimShader");
+			shaderFilePath = "..\\res\\rimShader";
 		}
 		break;
 	}
-	
+	renderer->Init(meshFilePath, textureFilePath, shaderFilePath);
+
 
 	// Changing Shader Properties
 	Shader* shader = renderer->GetShader();
@@ -93,8 +97,9 @@ TestLevel::TestLevel() : GameScene()
 
 		case (ShaderType::RIM_SHADER):
 		{
-			shader->setVec3("cameraPos", *sceneCamera->thisTransform->GetGlobalPos());
-			shader->setFloat("rimSize", 0.5f);
+			glm::vec3 pos = *sceneCamera->thisTransform->GetGlobalPos();
+			shader->setVec3("cameraPos", pos);
+			shader->setFloat("rimSize", 0.25f);
 		}
 		break;
 	}

@@ -14,14 +14,25 @@ void main()
 {
 	vec4 color = texture2D(diffuse, texCoord);
 
-	vec3 direction = cameraPos - position.xyz;
+	vec3 viewDirection = position.xyz - cameraPos;
+	viewDirection = normalize(viewDirection);
 
-	float angle = dot(direction, normal);
+	vec3 norm = normalize(normal);
 
-	// Front of object
-	if (angle > (1.0 - rimSize) && angle < (1.0 + rimSize))
+	float angle = dot(norm, viewDirection);
+	//angle = (1.0 - angle);
+
+	if ((angle > -rimSize) && (angle < rimSize))
 	{
 		color = vec4(1.0, 1.0, 1.0, 1.0);
+	}
+	else if (angle >= rimSize)
+	{
+		color = vec4(1.0, 0.0, 0.0, 1.0);
+	}
+	else if (angle <= -rimSize)
+	{
+		color = vec4(0.0, 0.0, 1.0, 1.0);
 	}
 
 	gl_FragColor = vec4(color.xyz, 1.0);
