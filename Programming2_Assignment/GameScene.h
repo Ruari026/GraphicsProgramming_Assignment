@@ -8,6 +8,7 @@
 #include "camera.h"
 #include "PhysicsHandler.h"
 #include "FontRenderer.h"
+#include "MeshMovement.h"
 #include "MeshRenderer.h"
 #include "SphereCollider.h"
 

@@ -12,6 +12,7 @@ public:
 	void Bind(); //Set gpu to use our shaders
 	void Update(Transform& transform, Camera& camera);
 
+	bool ShaderExists(const std::string& fileName);
 	std::string Shader::LoadShader(const std::string& fileName);
 	void Shader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage);
 	GLuint Shader::CreateShader(const std::string& text, unsigned int type);
@@ -36,7 +37,7 @@ public:
 
 protected:
 private:
-	static const unsigned int NUM_SHADERS = 2; // number of shaders (Each shader program always has a vertex and fragment shader)
+	static const unsigned int NUM_SHADERS = 3; // number of shaders (Each shader program always has a vertex and fragment shader)
 
 	enum
 	{

@@ -7,12 +7,26 @@ Shader::Shader(const std::string& filename)
 {
 	// Completing the filepaths for both shader types
 	std::string vertPath = filename + ".vert";
+	std::string geomPath = filename + ".geom";
 	std::string fragPath = filename + ".frag";
 
 	// create shader program (openGL saves as ref number)
 	program = glCreateProgram();
-	shaders[0] = CreateShader(LoadShader(vertPath), GL_VERTEX_SHADER); // create vertex shader
-	shaders[1] = CreateShader(LoadShader(fragPath), GL_FRAGMENT_SHADER); // create fragment shader
+	if (ShaderExists(vertPath))
+	{
+		GLuint vertShader = CreateShader(LoadShader(vertPath), GL_VERTEX_SHADER); // create vertex shader
+		shaders[0] = vertShader;
+	}
+	if (ShaderExists(geomPath))
+	{
+		GLuint geomShader = CreateShader(LoadShader(geomPath), GL_GEOMETRY_SHADER); // create geometry shader
+		shaders[1] = geomShader;
+	}
+	if (ShaderExists(fragPath))
+	{
+		GLuint fragShader = CreateShader(LoadShader(fragPath), GL_FRAGMENT_SHADER); // create fragment shader
+		shaders[2] = fragShader;
+	}
 
 	// add both the new fragment and new vertex shaders to the shader program
 	for (unsigned int i = 0; i < NUM_SHADERS; i++)
@@ -56,13 +70,25 @@ void Shader::Update(Transform& transform, Camera& camera)
 	glm::mat4 model = transform.GetModel();
 	glm::mat4 viewProjection = camera.GetViewProjection();
 
-	glm::mat4 mvp = viewProjection * model;
-
 	glUniformMatrix4fv(uniforms[TRANSFORM_U], 1, GLU_FALSE, &model[0][0]);
 	glUniformMatrix4fv(uniforms[PROJECTION_U], 1, GLU_FALSE, &viewProjection[0][0]);
 }
 
 
+bool Shader::ShaderExists(const std::string& fileName)
+{
+	std::ifstream file;
+	file.open((fileName).c_str());
+
+	if (file.is_open())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 GLuint Shader::CreateShader(const std::string& text, unsigned int type)
 {
@@ -83,7 +109,6 @@ GLuint Shader::CreateShader(const std::string& text, unsigned int type)
 
 	return shader;
 }
-
 
 std::string Shader::LoadShader(const std::string& fileName)
 {

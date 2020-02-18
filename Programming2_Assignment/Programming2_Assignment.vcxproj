@@ -87,6 +87,7 @@
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="MeshMovement.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="obj_loader.h" />
     <ClInclude Include="PhysicsHandler.h" />
@@ -115,6 +116,7 @@
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshManager.cpp" />
+    <ClCompile Include="MeshMovement.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="PhysicsHandler.cpp" />
@@ -129,12 +131,19 @@
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\res\combinedShader.frag" />
+    <None Include="..\res\combinedShader.vert" />
     <None Include="..\res\fogShader.frag" />
     <None Include="..\res\fogShader.vert" />
     <None Include="..\res\meshShader.frag" />
     <None Include="..\res\meshShader.vert" />
+    <None Include="..\res\pulseChangeShader.frag" />
+    <None Include="..\res\pulseChangeShader.vert" />
     <None Include="..\res\rimShader.frag" />
     <None Include="..\res\rimShader.vert" />
+    <None Include="..\res\shaderGeoText.frag" />
+    <None Include="..\res\shaderGeoText.geom" />
+    <None Include="..\res\shaderGeoText.vert" />
     <None Include="..\res\shaderToon.frag" />
     <None Include="..\res\shaderToon.vert" />
   </ItemGroup>

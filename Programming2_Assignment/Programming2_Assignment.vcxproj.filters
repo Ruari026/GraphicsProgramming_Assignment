@@ -37,6 +37,12 @@
     <Filter Include="Header Files\Managers">
       <UniqueIdentifier>{4d7f1370-d23f-43d2-adc7-925586fcaac9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Labs">
+      <UniqueIdentifier>{5c053aa6-4e20-45e1-a65a-4f88c68a4a5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Coursework">
+      <UniqueIdentifier>{3f0dbe49-977b-4cb2-85bd-a5ebc73e1a81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -120,6 +126,9 @@
     <ClInclude Include="TestLevel.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="MeshMovement.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp">
@@ -197,31 +206,55 @@
     <ClCompile Include="TestLevel.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="MeshMovement.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\res\meshShader.frag">
-      <Filter>Resource Files</Filter>
+    <None Include="..\res\combinedShader.frag">
+      <Filter>Resource Files\Labs</Filter>
     </None>
-    <None Include="..\res\meshShader.vert">
-      <Filter>Resource Files</Filter>
+    <None Include="..\res\combinedShader.vert">
+      <Filter>Resource Files\Labs</Filter>
     </None>
     <None Include="..\res\fogShader.frag">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Labs</Filter>
     </None>
     <None Include="..\res\fogShader.vert">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Labs</Filter>
     </None>
-    <None Include="..\res\shaderToon.frag">
-      <Filter>Resource Files</Filter>
+    <None Include="..\res\meshShader.frag">
+      <Filter>Resource Files\Labs</Filter>
     </None>
-    <None Include="..\res\shaderToon.vert">
-      <Filter>Resource Files</Filter>
+    <None Include="..\res\meshShader.vert">
+      <Filter>Resource Files\Labs</Filter>
     </None>
     <None Include="..\res\rimShader.frag">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Labs</Filter>
     </None>
     <None Include="..\res\rimShader.vert">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Labs</Filter>
+    </None>
+    <None Include="..\res\shaderToon.frag">
+      <Filter>Resource Files\Labs</Filter>
+    </None>
+    <None Include="..\res\shaderToon.vert">
+      <Filter>Resource Files\Labs</Filter>
+    </None>
+    <None Include="..\res\pulseChangeShader.frag">
+      <Filter>Resource Files\Coursework</Filter>
+    </None>
+    <None Include="..\res\pulseChangeShader.vert">
+      <Filter>Resource Files\Coursework</Filter>
+    </None>
+    <None Include="..\res\shaderGeoText.frag">
+      <Filter>Resource Files\Labs</Filter>
+    </None>
+    <None Include="..\res\shaderGeoText.geom">
+      <Filter>Resource Files\Labs</Filter>
+    </None>
+    <None Include="..\res\shaderGeoText.vert">
+      <Filter>Resource Files\Labs</Filter>
     </None>
   </ItemGroup>
 </Project>
