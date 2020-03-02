@@ -85,7 +85,7 @@ TestLevel::TestLevel() : GameScene()
 
 		case (ShaderType::GEOM_SHADER):
 		{
-			shaderFilePath = "..\\res\\shaderGeoText";
+			shaderFilePath = "..\\res\\wireShader";
 		}
 		break;
 	}

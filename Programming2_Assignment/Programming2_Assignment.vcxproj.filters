@@ -40,7 +40,7 @@
     <Filter Include="Resource Files\Labs">
       <UniqueIdentifier>{5c053aa6-4e20-45e1-a65a-4f88c68a4a5b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Coursework">
+    <Filter Include="Resource Files\Testing">
       <UniqueIdentifier>{3f0dbe49-977b-4cb2-85bd-a5ebc73e1a81}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -242,10 +242,10 @@
       <Filter>Resource Files\Labs</Filter>
     </None>
     <None Include="..\res\pulseChangeShader.frag">
-      <Filter>Resource Files\Coursework</Filter>
+      <Filter>Resource Files\Testing</Filter>
     </None>
     <None Include="..\res\pulseChangeShader.vert">
-      <Filter>Resource Files\Coursework</Filter>
+      <Filter>Resource Files\Testing</Filter>
     </None>
     <None Include="..\res\shaderGeoText.frag">
       <Filter>Resource Files\Labs</Filter>
@@ -255,6 +255,15 @@
     </None>
     <None Include="..\res\shaderGeoText.vert">
       <Filter>Resource Files\Labs</Filter>
+    </None>
+    <None Include="..\res\wireShader.frag">
+      <Filter>Resource Files\Testing</Filter>
+    </None>
+    <None Include="..\res\wireShader.geom">
+      <Filter>Resource Files\Testing</Filter>
+    </None>
+    <None Include="..\res\wireShader.vert">
+      <Filter>Resource Files\Testing</Filter>
     </None>
   </ItemGroup>
 </Project>

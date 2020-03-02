@@ -146,6 +146,9 @@
     <None Include="..\res\shaderGeoText.vert" />
     <None Include="..\res\shaderToon.frag" />
     <None Include="..\res\shaderToon.vert" />
+    <None Include="..\res\wireShader.frag" />
+    <None Include="..\res\wireShader.geom" />
+    <None Include="..\res\wireShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
