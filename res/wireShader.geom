@@ -11,14 +11,14 @@ uniform mat4 projection;
 void main()
 {
     // Vertex Positions (Model Space)
-    vec4 p0_3d = gl_in[0].gl_Position;
-    vec4 p1_3d = gl_in[1].gl_Position;
-    vec4 p2_3d = gl_in[2].gl_Position;
+    vec4 point_0_3d = gl_in[0].gl_Position;
+    vec4 point_1_3d = gl_in[1].gl_Position;
+    vec4 point_2_3d = gl_in[2].gl_Position;
 
     // Vertex Positions (2D)
-    vec2 p0 = p0_3d.xy / p0_3d.w;
-    vec2 p1 = p1_3d.xy / p1_3d.w;
-    vec2 p2 = p2_3d.xy / p2_3d.w; 
+    vec2 point0 = p0_3d.xy / p0_3d.w;
+    vec2 point1 = p1_3d.xy / p1_3d.w;
+    vec2 point2 = p2_3d.xy / p2_3d.w; 
  
  
  

@@ -21,6 +21,13 @@ void MeshMovement::Update()
 	// Rotation
 	glm::vec3 newRot = glm::vec3(0.0f, (currentTime * rotationMagnitude), 0.0f);
 	this->gameObject->thisTransform->SetGlobalRot(newRot);
+
+	
+	// TODO: Move to own component
+	Shader* r = this->gameObject->getComponent<MeshRenderer>()->GetShader();
+	r->Bind();
+
+	r->setFloat("Magnitude", (sin(currentTime) + 1.0f) * movementMagnitude);
 }
 
 
