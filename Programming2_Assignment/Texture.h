@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 #include <GL\glew.h>
 
 class Texture
@@ -8,9 +9,10 @@ public:
 	Texture(const std::string& fileName);
 	~Texture();
 
-	void Bind(unsigned int unit); // bind upto 32 textures
+	virtual void Bind(unsigned int unit); // bind upto 32 textures
 
-private:
+protected:
+	Texture();
+
 	GLuint textureHandler;
 };
-

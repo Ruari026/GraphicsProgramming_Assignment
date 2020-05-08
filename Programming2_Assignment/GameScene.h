@@ -11,6 +11,8 @@
 #include "MeshMovement.h"
 #include "MeshRenderer.h"
 #include "SphereCollider.h"
+#include "SkyboxRenderer.h"
+#include "ExplosionHandler.h"
 
 #include "GameObject.h"
 

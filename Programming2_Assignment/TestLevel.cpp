@@ -1,140 +1,97 @@
 #include "TestLevel.h"
-
-
 #include "Font.h"
 
 TestLevel::TestLevel() : GameScene()
 {
 	/*
 	====================================================================================================
-	CAMERA
+	SCENE SETUP
 	====================================================================================================
 	*/
-	GameObject* cameraGameObject = new GameObject(this);
-	// Camera - Transform
-	sceneCamera = cameraGameObject->addComponent<Camera>();
-	sceneCamera->Init(70.0f, (DISPLAY_WIDTH / DISPLAY_HEIGHT), 0.01f, 1000.0f);
-	cameraGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 1.75f, -5.0f));
-
-
-
-	/*
-	====================================================================================================
-	TESTING GAMEOBJECT
-	====================================================================================================
-	*/
-	GameObject* meshGameObject = new GameObject(this);
-	sceneGameObjects.push_back(meshGameObject);
-
-	// Transform
-	meshGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 5.0f));
-	meshGameObject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.75f), 0.0f));
-
-	// Movement
-	MeshMovement* mm = meshGameObject->addComponent<MeshMovement>();
-	mm->SetMovementDirection(glm::vec3(0.0f, 0.0f, 1.0f));
-	mm->SetMovementMagnitude(7.5f);
-	mm->SetRotationMagnitude(3.14f * 0.33f);
-
-
-
-	/*
-	====================================================================================================
-	TESTING SHADERS
-	====================================================================================================
-	*/
-	// Setting What Shader To Use
-	ShaderType shaderType = ShaderType::GEOM_SHADER;
-
-	// Initalising Renderer Shaders
-	MeshRenderer* renderer = meshGameObject->addComponent<MeshRenderer>();
-	string meshFilePath = "..\\res\\monkey3.obj";
-	string textureFilePath = "..\\res\\gradient.jpg";
-	string shaderFilePath = "";
-	switch (shaderType)
 	{
-		case (ShaderType::MESH_SHADER):
-		{
-			shaderFilePath = "..\\res\\meshShader";
-		}
-		break;
-
-		case (ShaderType::FOG_SHADER):
-		{
-			shaderFilePath = "..\\res\\fogShader";
-		}
-		break;
-
-		case (ShaderType::TOON_SHADER):
-		{
-			shaderFilePath = "..\\res\\shaderToon";
-		}
-		break;
-
-		case (ShaderType::RIM_SHADER):
-		{
-			shaderFilePath = "..\\res\\rimShader";
-		}
-		break;
-
-		case (ShaderType::COMBINED_SHADER):
-		{
-			shaderFilePath = "..\\res\\combinedShader";
-		}
-		break;
-
-		case (ShaderType::GEOM_SHADER):
-		{
-			shaderFilePath = "..\\res\\shaderGeoText";
-		}
-		break;
+		// Camera
+		GameObject* cameraGameObject = new GameObject(this);
+		// Camera - Transform
+		sceneCamera = cameraGameObject->addComponent<Camera>();
+		sceneCamera->Init(70.0f, (DISPLAY_WIDTH / DISPLAY_HEIGHT), 0.01f, 1000.0f);
+		cameraGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 1.75f, -5.0f));
 	}
-	renderer->Init(meshFilePath, textureFilePath, shaderFilePath);
 
 
-	// Changing Shader Properties
-	Shader* shader = renderer->GetShader();
-	shader->Bind();
-	switch (shaderType)
+	
+	/*
+	====================================================================================================
+	CW SHADER 1 - EXPLODING SHADER
+	====================================================================================================
+	*/
+	/*{
+		GameObject* explodingGameobject = new GameObject(this);
+		sceneGameObjects.push_back(explodingGameobject);
+
+		// Transform
+		explodingGameobject->thisTransform->SetGlobalPos(glm::vec3(2.5f, 0.0f, 5.0f));
+		explodingGameobject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.75f), 0.0f));
+
+		// Movement
+		MeshMovement* mm = explodingGameobject->addComponent<MeshMovement>();
+		mm->SetMovementDirection(glm::vec3(0.0f, 0.0f, 1.0f));
+		mm->SetMovementMagnitude(7.5f);
+		mm->SetRotationMagnitude(3.14f * 0.33f);
+
+		// Rendering
+		MeshRenderer* renderer = explodingGameobject->addComponent<MeshRenderer>();
+		string meshFilePath = "..\\res\\monkey3.obj";
+		string textureFilePath = "..\\res\\gradient.jpg";
+		string shaderFilePath = "..\\res\\shaderGeoText";
+		renderer->Init(meshFilePath, textureFilePath, shaderFilePath);
+
+		// Shader Handling
+		ExplosionHandler* eh = explodingGameobject->addComponent<ExplosionHandler>();
+		eh->SetMaxSize(5.0f);
+	}*/
+
+
+	/*
+	====================================================================================================
+	CW SHADER 2 - ENVIRONMENT SHADER
+	====================================================================================================
+	*/
 	{
-		case (ShaderType::FOG_SHADER):
+		// Skybox
+		GameObject* skyboxGameobject = new GameObject(this);
+		sceneGameObjects.push_back(skyboxGameobject);
+		SkyboxRenderer* sr = skyboxGameobject->addComponent<SkyboxRenderer>();
+		vector<std::string> skyboxFaces
 		{
-			shader->setVec4("fogColor", glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
-			shader->setFloat("minDist", 0.0f);
-			shader->setFloat("maxDist", 10.0f);
-			shader->setVec3("cam_pos", *cameraGameObject->thisTransform->GetGlobalPos());
-		}
-		break;
+			"..\\res\\skybox\\right.jpg",
+			"..\\res\\skybox\\left.jpg",
+			"..\\res\\skybox\\top.jpg",
+			"..\\res\\skybox\\bottom.jpg",
+			"..\\res\\skybox\\front.jpg",
+			"..\\res\\skybox\\back.jpg"
+		};
+		sr->Init(skyboxFaces, "..\\res\\shaderSkybox");
 
-		case (ShaderType::TOON_SHADER):
-		{
-			shader->setVec3("lightDir", glm::vec3(0.0f, 0.0f, -1.0f));
-		}
-		break;
 
-		case (ShaderType::RIM_SHADER):
-		{
-			glm::vec3 pos = *sceneCamera->thisTransform->GetGlobalPos();
-			shader->setVec3("cameraPos", pos);
-			shader->setFloat("rimSize", 0.25f);
-		}
-		break;
+		// Gameobject
+		GameObject* reflectionGameobject = new GameObject(this);
+		sceneGameObjects.push_back(reflectionGameobject);
 
-		case (ShaderType::COMBINED_SHADER):
-		{
-			// Fog Details
-			shader->setVec4("fogColor", glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
-			shader->setFloat("minDist", 5.0f);
-			shader->setFloat("maxDist", 15.0f);
+		// Transform
+		reflectionGameobject->thisTransform->SetGlobalPos(glm::vec3(-2.5f, 0.0f, 5.0f));
+		reflectionGameobject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.75f), 0.0f));
 
-			// Toon Details
-			shader->setVec3("lightDir", glm::vec3(0.0f, 0.0f, -1.0f));
+		// Movement
+		MeshMovement* mm = reflectionGameobject->addComponent<MeshMovement>();
+		mm->SetMovementDirection(glm::vec3(0.0f, 0.0f, -1.0f));
+		mm->SetMovementMagnitude(7.5f);
+		mm->SetRotationMagnitude(3.14f * 0.33f);
 
-			// Rim Details
-			glm::vec3 pos = *sceneCamera->thisTransform->GetGlobalPos();
-			shader->setVec3("cameraPos", pos);
-			shader->setFloat("rimSize", 0.25f);
-		}
-		break;
+		// Rendering
+		MeshRenderer* renderer = reflectionGameobject->addComponent<MeshRenderer>();
+		string meshFilePath = "..\\res\\monkey3.obj";
+		string shaderFilePath = "..\\res\\meshShader";
+		Skybox* skybox = sr->GetSkybox();
+		renderer->Init(meshFilePath, skybox, shaderFilePath);
 	}
 }

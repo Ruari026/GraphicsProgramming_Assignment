@@ -3,6 +3,11 @@
 #include <cassert>
 #include <iostream>
 
+Texture::Texture()
+{
+
+}
+
 Texture::Texture(const std::string& fileName)
 {
 	int width, height, numComponents; //width, height, and no of components of image

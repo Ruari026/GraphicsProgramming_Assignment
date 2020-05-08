@@ -2,6 +2,7 @@
 
 GameScene::GameScene()
 {
+
 }
 GameScene::~GameScene()
 {
@@ -26,6 +27,7 @@ Camera* GameScene::GetSceneCamera()
 {
 	return this->sceneCamera;
 }
+
 vector<BoxCollider*> GameScene::GetSceneColliders()
 {
 	vector<BoxCollider*> sceneColliders;

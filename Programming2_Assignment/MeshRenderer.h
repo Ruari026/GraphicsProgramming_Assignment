@@ -17,13 +17,13 @@ public:
 	void Update();
 
 	void Init(std::string meshFileName, std::string textureFileName, std::string shaderFileName);
+	void Init(std::string meshFileName, Texture* newTexture, std::string shaderFileName);
 
 	Mesh* GetMesh();
 	Texture* GetTexture();
 	Shader* GetShader();
 
 private:
-
 	Camera* camera;
 
 	Mesh* mesh;
