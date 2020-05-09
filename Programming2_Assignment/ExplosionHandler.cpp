@@ -20,7 +20,9 @@ void ExplosionHandler::Update()
 	{
 		geometryShader = this->gameObject->getComponent<MeshRenderer>()->GetShader();
 	}
+
 	geometryShader->Bind();
+	geometryShader->setFloat("Magnitude", (sin(currentTime / 2) + 1.0f) * maxExplosionSize);
 }
 
 void ExplosionHandler::SetMaxSize(float newMaxSize)

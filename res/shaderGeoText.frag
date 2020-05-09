@@ -1,5 +1,5 @@
 //Version number
-#version 400
+#version 430
 
 //Layout Qualifer
 layout( location = 0 ) out vec4 fragcolor;

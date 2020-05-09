@@ -40,8 +40,17 @@
     <Filter Include="Resource Files\Labs">
       <UniqueIdentifier>{5c053aa6-4e20-45e1-a65a-4f88c68a4a5b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Testing">
-      <UniqueIdentifier>{3f0dbe49-977b-4cb2-85bd-a5ebc73e1a81}</UniqueIdentifier>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{049a8030-88b5-49db-aa02-bb1542d0f01c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Exploding Shader">
+      <UniqueIdentifier>{13a4243d-947d-4db5-8216-ea8472ca32e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Environment Mapping Shader">
+      <UniqueIdentifier>{6fc86ed1-f7a7-4de2-9079-d923032c96a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Raymarching Shader">
+      <UniqueIdentifier>{9e19a037-b7f5-4d89-ab38-df6a9eb22501}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +150,9 @@
     <ClInclude Include="ReflectionHandler.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="RaymarchHandler.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp">
@@ -233,6 +245,9 @@
     <ClCompile Include="ReflectionHandler.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="RaymarchHandler.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\combinedShader.frag">
@@ -265,35 +280,29 @@
     <None Include="..\res\shaderToon.vert">
       <Filter>Resource Files\Labs</Filter>
     </None>
+    <None Include="..\res\shaderGeoText.vert">
+      <Filter>Resource Files\Shaders\Exploding Shader</Filter>
+    </None>
     <None Include="..\res\shaderGeoText.frag">
-      <Filter>Resource Files\Labs</Filter>
+      <Filter>Resource Files\Shaders\Exploding Shader</Filter>
     </None>
     <None Include="..\res\shaderGeoText.geom">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\shaderGeoText.vert">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\wireShader.frag">
-      <Filter>Resource Files\Testing</Filter>
-    </None>
-    <None Include="..\res\wireShader.geom">
-      <Filter>Resource Files\Testing</Filter>
-    </None>
-    <None Include="..\res\wireShader.vert">
-      <Filter>Resource Files\Testing</Filter>
+      <Filter>Resource Files\Shaders\Exploding Shader</Filter>
     </None>
     <None Include="..\res\shaderReflection.frag">
-      <Filter>Resource Files\Labs</Filter>
+      <Filter>Resource Files\Shaders\Environment Mapping Shader</Filter>
     </None>
     <None Include="..\res\shaderReflection.vert">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\shaderSkybox.vert">
-      <Filter>Resource Files\Labs</Filter>
+      <Filter>Resource Files\Shaders\Environment Mapping Shader</Filter>
     </None>
     <None Include="..\res\shaderSkybox.frag">
-      <Filter>Resource Files\Labs</Filter>
+      <Filter>Resource Files\Shaders\Environment Mapping Shader</Filter>
+    </None>
+    <None Include="..\res\shaderSkybox.vert">
+      <Filter>Resource Files\Shaders\Environment Mapping Shader</Filter>
+    </None>
+    <None Include="..\res\raymarchShader.comp">
+      <Filter>Resource Files\Shaders\Raymarching Shader</Filter>
     </None>
   </ItemGroup>
 </Project>

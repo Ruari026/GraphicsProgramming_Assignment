@@ -1,5 +1,5 @@
 //Version number
-#version 330 core
+#version 430
 
 //Layout qualfier
 layout (triangles) in;

@@ -13,6 +13,7 @@
 #include "SphereCollider.h"
 #include "SkyboxRenderer.h"
 #include "ExplosionHandler.h"
+#include "RaymarchHandler.h"
 
 #include "GameObject.h"
 

@@ -3,15 +3,17 @@
 
 TestLevel::TestLevel() : GameScene()
 {
+	std::cout << glGetString(GL_VERSION) << std::endl;
+
 	/*
 	====================================================================================================
 	SCENE SETUP
 	====================================================================================================
 	*/
 	{
-		// Camera
 		GameObject* cameraGameObject = new GameObject(this);
-		// Camera - Transform
+
+		// Transform
 		sceneCamera = cameraGameObject->addComponent<Camera>();
 		sceneCamera->Init(70.0f, (DISPLAY_WIDTH / DISPLAY_HEIGHT), 0.01f, 1000.0f);
 		cameraGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 1.75f, -5.0f));
@@ -24,12 +26,12 @@ TestLevel::TestLevel() : GameScene()
 	CW SHADER 1 - EXPLODING SHADER
 	====================================================================================================
 	*/
-	/*{
+	{
 		GameObject* explodingGameobject = new GameObject(this);
 		sceneGameObjects.push_back(explodingGameobject);
 
 		// Transform
-		explodingGameobject->thisTransform->SetGlobalPos(glm::vec3(2.5f, 0.0f, 5.0f));
+		explodingGameobject->thisTransform->SetGlobalPos(glm::vec3(2.5f, 0.0f, 7.5f));
 		explodingGameobject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.75f), 0.0f));
 
 		// Movement
@@ -47,13 +49,13 @@ TestLevel::TestLevel() : GameScene()
 
 		// Shader Handling
 		ExplosionHandler* eh = explodingGameobject->addComponent<ExplosionHandler>();
-		eh->SetMaxSize(5.0f);
-	}*/
+		eh->SetMaxSize(10.0f);
+	}
 
 
 	/*
 	====================================================================================================
-	CW SHADER 2 - ENVIRONMENT SHADER
+	CW SHADER 2 - ENVIRONMENT REFLECTION SHADER
 	====================================================================================================
 	*/
 	{
@@ -83,15 +85,30 @@ TestLevel::TestLevel() : GameScene()
 
 		// Movement
 		MeshMovement* mm = reflectionGameobject->addComponent<MeshMovement>();
-		mm->SetMovementDirection(glm::vec3(0.0f, 0.0f, -1.0f));
+		mm->SetMovementDirection(glm::vec3(0.0f, 0.0f, 0.0f));
 		mm->SetMovementMagnitude(7.5f);
-		mm->SetRotationMagnitude(3.14f * 0.33f);
+		mm->SetRotationMagnitude(3.14f * 0.1f);
 
 		// Rendering
 		MeshRenderer* renderer = reflectionGameobject->addComponent<MeshRenderer>();
-		string meshFilePath = "..\\res\\monkey3.obj";
-		string shaderFilePath = "..\\res\\meshShader";
+		string meshFilePath = "..\\res\\cube.obj";
+		string shaderFilePath = "..\\res\\shaderReflection";
 		Skybox* skybox = sr->GetSkybox();
 		renderer->Init(meshFilePath, skybox, shaderFilePath);
+	}
+
+
+	/*
+	====================================================================================================
+	CW SHADER 3 - ADDITIONAL GRAPHICAL TECHNIQUE
+	====================================================================================================
+	*/
+	{
+		// Gameobject
+		GameObject* raymarchGameobject = new GameObject(this);
+		sceneGameObjects.push_back(raymarchGameobject);
+
+		// Compute Shader Test
+		RaymarchHandler* rh = raymarchGameobject->addComponent<RaymarchHandler>();
 	}
 }

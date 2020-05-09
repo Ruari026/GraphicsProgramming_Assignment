@@ -1,5 +1,5 @@
 //Version Number
-#version 400
+#version 430
 
 //The layout qualifers
 layout (location = 0) in vec3 VertexPosition;

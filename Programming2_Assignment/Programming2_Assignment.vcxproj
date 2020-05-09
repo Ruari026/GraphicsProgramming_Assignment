@@ -92,6 +92,7 @@
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="obj_loader.h" />
     <ClInclude Include="PhysicsHandler.h" />
+    <ClInclude Include="RaymarchHandler.h" />
     <ClInclude Include="ReflectionHandler.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
@@ -125,6 +126,7 @@
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="PhysicsHandler.cpp" />
+    <ClCompile Include="RaymarchHandler.cpp" />
     <ClCompile Include="ReflectionHandler.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -145,6 +147,7 @@
     <None Include="..\res\fogShader.vert" />
     <None Include="..\res\meshShader.frag" />
     <None Include="..\res\meshShader.vert" />
+    <None Include="..\res\raymarchShader.comp" />
     <None Include="..\res\rimShader.frag" />
     <None Include="..\res\rimShader.vert" />
     <None Include="..\res\shaderGeoText.frag" />
@@ -156,9 +159,6 @@
     <None Include="..\res\shaderSkybox.vert" />
     <None Include="..\res\shaderToon.frag" />
     <None Include="..\res\shaderToon.vert" />
-    <None Include="..\res\wireShader.frag" />
-    <None Include="..\res\wireShader.geom" />
-    <None Include="..\res\wireShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

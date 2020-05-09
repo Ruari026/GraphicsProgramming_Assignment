@@ -9,6 +9,7 @@ Shader::Shader(const std::string& filename)
 	std::string vertPath = filename + ".vert";
 	std::string geomPath = filename + ".geom";
 	std::string fragPath = filename + ".frag";
+	std::string compPath = filename + ".comp";
 
 	// create shader program (openGL saves as ref number)
 	program = glCreateProgram();
@@ -26,6 +27,11 @@ Shader::Shader(const std::string& filename)
 	{
 		GLuint fragShader = CreateShader(LoadShader(fragPath), GL_FRAGMENT_SHADER); // create fragment shader
 		shaders[2] = fragShader;
+	}
+	if (ShaderExists(compPath))
+	{
+		GLuint compShader = CreateShader(LoadShader(compPath), GL_COMPUTE_SHADER); // create fragment shader
+		shaders[3] = compShader;
 	}
 
 	// add both the new fragment and new vertex shaders to the shader program
