@@ -1,5 +1,7 @@
-﻿  TestLevel.cpp
+﻿  RaymarchHandler.cpp
 c:\users\ruari\documents\github\graphicsprogramming_assignment\programming2_assignment\gameobject.h(69): warning C4018: '<': signed/unsigned mismatch
-c:\users\ruari\documents\github\graphicsprogramming_assignment\programming2_assignment\transform.h(151): warning C4172: returning address of local variable or temporary: totalRot
+c:\users\ruari\documents\github\graphicsprogramming_assignment\programming2_assignment\transform.h(98): warning C4172: returning address of local variable or temporary: forward
 c:\users\ruari\documents\github\graphicsprogramming_assignment\programming2_assignment\transform.h(82): warning C4172: returning address of local variable or temporary
+c:\users\ruari\documents\github\graphicsprogramming_assignment\programming2_assignment\transform.h(167): warning C4172: returning address of local variable or temporary: quaternion
+c:\users\ruari\documents\github\graphicsprogramming_assignment\programming2_assignment\transform.h(154): warning C4172: returning address of local variable or temporary: totalRot
   Programming2_Assignment.vcxproj -> C:\Users\ruari\Documents\GitHub\GraphicsProgramming_Assignment\Debug\Coursework.exe

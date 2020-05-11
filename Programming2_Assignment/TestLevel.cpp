@@ -108,7 +108,28 @@ TestLevel::TestLevel() : GameScene()
 		GameObject* raymarchGameobject = new GameObject(this);
 		sceneGameObjects.push_back(raymarchGameobject);
 
+		// Transform
+		raymarchGameobject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 0.0f));
+		raymarchGameobject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 1.0f), 0.0f));
+
+		// Movement
+		MeshMovement* mm = raymarchGameobject->addComponent<MeshMovement>();
+		mm->SetMovementDirection(glm::vec3(0.0f, 0.0f, 0.0f));
+		mm->SetMovementMagnitude(7.5f);
+		mm->SetRotationMagnitude(3.14f * 0.1f);
+
+
+
+		// Texture to alter
+		Texture* testTexture = TextureManager::Instance()->GetTexture("..\\res\\prototype.png");
+
 		// Compute Shader Test
 		RaymarchHandler* rh = raymarchGameobject->addComponent<RaymarchHandler>();
+
+		// Rendering
+		/*MeshRenderer* mr = raymarchGameobject->addComponent<MeshRenderer>();
+		string meshFilePath = "..\\res\\plane.obj";
+		string shaderFilePath = "..\\res\\meshShader";
+		mr->Init(meshFilePath, testTexture, shaderFilePath);*/
 	}
 }

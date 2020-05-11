@@ -44,3 +44,8 @@ void Texture::Bind(unsigned int unit)
 	glActiveTexture(GL_TEXTURE0 + unit); //set acitve texture unit
 	glBindTexture(GL_TEXTURE_2D, textureHandler); //type of and texture to bind to unit
 }
+
+GLuint Texture::GetHandler()
+{
+	return this->textureHandler;
+}

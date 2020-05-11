@@ -1,4 +1,5 @@
 #include "Display.h"
+Display* Display::instance = nullptr;
 
 Display::Display(float width, float height)
 {
@@ -51,6 +52,15 @@ Display::~Display()
 	SDL_GL_DeleteContext(glContext); // deleting context
 	SDL_DestroyWindow(sdlWindow); // deteting window
 	SDL_Quit();
+}
+
+Display* Display::Instance()
+{
+	if (instance == 0)
+	{
+		instance = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+	}
+	return instance;
 }
 
 void Display::returnError(std::string errorString)

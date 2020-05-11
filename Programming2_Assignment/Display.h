@@ -13,12 +13,16 @@ using namespace std;
 class Display
 {
 public:
-	Display(float width, float height);
+	static Display* Instance();
+
 	~Display();
 	void swapBuffer();
 	void clearDisplay(float r, float g, float b, float a);
 
 private:
+	static Display* instance;
+
+	Display(float width, float height);
 
 	void returnError(std::string errorString);
 

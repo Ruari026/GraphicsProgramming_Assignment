@@ -93,6 +93,7 @@
     <ClInclude Include="obj_loader.h" />
     <ClInclude Include="PhysicsHandler.h" />
     <ClInclude Include="RaymarchHandler.h" />
+    <ClInclude Include="RaymarchTarget.h" />
     <ClInclude Include="ReflectionHandler.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
@@ -127,6 +128,7 @@
     <ClCompile Include="obj_loader.cpp" />
     <ClCompile Include="PhysicsHandler.cpp" />
     <ClCompile Include="RaymarchHandler.cpp" />
+    <ClCompile Include="RaymarchTarget.cpp" />
     <ClCompile Include="ReflectionHandler.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />

@@ -87,6 +87,17 @@ public:
 			return localPos;
 		}
 	}
+
+	inline glm::vec3* GetForward()
+	{
+		glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f);
+
+		glm::quat rot = *this->GetGlobalRotQuaternion();
+		forward = rot * forward;
+
+		return &forward;
+	}
+
 	// Setters
 	inline void SetLocalPos(glm::vec3& pos)
 	{
@@ -136,14 +147,6 @@ public:
 		}
 		else
 		{
-			/*// Parent Rotation
-			glm::quat parentQuarternion = *parent->GetGlobalRotQuaternion();
-			// Local Rotation
-			glm::quat localQuarternion = *this->GetLocalRotQuaternion();
-			// Total Rotation
-			glm::quat totalQuarternion = parentQuarternion * localQuarternion;
-			glm::vec3 totalRot = glm::eulerAngles(totalQuarternion);*/
-
 			glm::vec3 parentRot = *parent->GetGlobalRotEuler();
 			glm::vec3 localRot = *this->GetLocalRotEuler();
 

@@ -153,6 +153,9 @@
     <ClInclude Include="RaymarchHandler.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="RaymarchTarget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp">
@@ -248,6 +251,9 @@
     <ClCompile Include="RaymarchHandler.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="RaymarchTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\combinedShader.frag">
@@ -260,12 +266,6 @@
       <Filter>Resource Files\Labs</Filter>
     </None>
     <None Include="..\res\fogShader.vert">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\meshShader.frag">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\meshShader.vert">
       <Filter>Resource Files\Labs</Filter>
     </None>
     <None Include="..\res\rimShader.frag">
@@ -302,6 +302,12 @@
       <Filter>Resource Files\Shaders\Environment Mapping Shader</Filter>
     </None>
     <None Include="..\res\raymarchShader.comp">
+      <Filter>Resource Files\Shaders\Raymarching Shader</Filter>
+    </None>
+    <None Include="..\res\meshShader.vert">
+      <Filter>Resource Files\Shaders\Raymarching Shader</Filter>
+    </None>
+    <None Include="..\res\meshShader.frag">
       <Filter>Resource Files\Shaders\Raymarching Shader</Filter>
     </None>
   </ItemGroup>

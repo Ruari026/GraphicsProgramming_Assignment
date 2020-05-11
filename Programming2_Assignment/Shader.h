@@ -37,7 +37,7 @@ public:
 
 protected:
 private:
-	static const unsigned int NUM_SHADERS = 3; // number of shaders (Each shader program always has a vertex and fragment shader)
+	static const unsigned int NUM_SHADERS = 4; // number of shaders (Each shader program always has a vertex and fragment shader)
 
 	enum
 	{

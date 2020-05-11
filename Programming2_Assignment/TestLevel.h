@@ -6,13 +6,4 @@ public:
 	TestLevel();
 
 private:
-	enum ShaderType
-	{
-		MESH_SHADER,
-		FOG_SHADER,
-		TOON_SHADER,
-		RIM_SHADER,
-		COMBINED_SHADER,
-		GEOM_SHADER
-	};
 };

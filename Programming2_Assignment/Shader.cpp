@@ -86,7 +86,8 @@ bool Shader::ShaderExists(const std::string& fileName)
 	std::ifstream file;
 	file.open((fileName).c_str());
 
-	if (file.is_open())
+	bool open = file.is_open();
+	if (open)
 	{
 		return true;
 	}

@@ -5,7 +5,7 @@
 MainGame::MainGame()
 {
 	_gameState = GameState::PLAY;
-	_gameDisplay = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT); //new display
+	_gameDisplay = Display::Instance();
 
 	// Game Managers
 	time = new Time();
