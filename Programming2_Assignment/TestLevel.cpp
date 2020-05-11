@@ -19,8 +19,6 @@ TestLevel::TestLevel() : GameScene()
 		cameraGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 1.75f, -5.0f));
 	}
 
-
-	
 	/*
 	====================================================================================================
 	CW SHADER 1 - EXPLODING SHADER
@@ -104,32 +102,27 @@ TestLevel::TestLevel() : GameScene()
 	====================================================================================================
 	*/
 	{
+		
+		GameObject* testGameObject = new GameObject(this);
+		sceneGameObjects.push_back(testGameObject);
+
+		glm::vec3 newPos = glm::vec3(0.0f, 1.75f, -5.0f) + (glm::vec3(0.0f, -0.32f, 0.95f) * 2.1f);
+		testGameObject->thisTransform->SetGlobalPos(newPos);
+		testGameObject->thisTransform->SetGlobalRot(glm::vec3((3.14f * -0.9f), 0.0f, 0.0f));
+		
+		MeshRenderer* mr = testGameObject->addComponent<MeshRenderer>();
+		mr->Init("..\\res\\plane.obj", "..\\res\\prototype.png", "..\\res\\shaderGeoText");
+		
+
+
 		// Gameobject
-		GameObject* raymarchGameobject = new GameObject(this);
+		/*GameObject* raymarchGameobject = new GameObject(this);
+		raymarchGameobject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 1.0f));
 		sceneGameObjects.push_back(raymarchGameobject);
 
-		// Transform
-		raymarchGameobject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 0.0f));
-		raymarchGameobject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 1.0f), 0.0f));
-
-		// Movement
-		MeshMovement* mm = raymarchGameobject->addComponent<MeshMovement>();
-		mm->SetMovementDirection(glm::vec3(0.0f, 0.0f, 0.0f));
-		mm->SetMovementMagnitude(7.5f);
-		mm->SetRotationMagnitude(3.14f * 0.1f);
-
-
-
-		// Texture to alter
-		Texture* testTexture = TextureManager::Instance()->GetTexture("..\\res\\prototype.png");
-
 		// Compute Shader Test
-		RaymarchHandler* rh = raymarchGameobject->addComponent<RaymarchHandler>();
+		RaymarchHandler* rh = raymarchGameobject->addComponent<RaymarchHandler>();*/
 
-		// Rendering
-		/*MeshRenderer* mr = raymarchGameobject->addComponent<MeshRenderer>();
-		string meshFilePath = "..\\res\\plane.obj";
-		string shaderFilePath = "..\\res\\meshShader";
-		mr->Init(meshFilePath, testTexture, shaderFilePath);*/
+
 	}
 }

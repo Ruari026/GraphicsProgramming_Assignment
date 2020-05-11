@@ -63,22 +63,6 @@ RaymarchHandler::RaymarchHandler(GameObject* parent) : Component(parent)
 
 void RaymarchHandler::Update()
 {
-	/*
-	// Binding the compute shader
-	computeShader->Bind();
-
-	// Binding the image that gets rendered to the screen
-	glBindTexture(GL_TEXTURE_2D, testTexture->GetHandler());
-
-	// Setting it so that the image can be read from and written to
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, DISPLAY_WIDTH, DISPLAY_HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
-	glBindImageTexture(0, testTexture->GetHandler(), 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
-
-	// Dispatching the compute shader so that it can run for every pixel on the game window
-	glDispatchCompute(DISPLAY_WIDTH, DISPLAY_HEIGHT, 1); // 512^2 threads in blocks of 16^2
-	*/
-
-
 	// Binding the compute shader
 	computeShader->Bind();
 
@@ -91,10 +75,15 @@ void RaymarchHandler::Update()
 
 	// Camera Details
 	glm::vec3 cameraPos = *gameObject->parentScene->GetSceneCamera()->thisTransform->GetGlobalPos();
-	glm::vec3 cameraForward = *gameObject->parentScene->GetSceneCamera()->thisTransform->GetForward();
-	
+	glm::vec3 cameraForward = gameObject->parentScene->GetSceneCamera()->GetCameraForward();
+	glm::mat4 cameraViewMatrix = gameObject->parentScene->GetSceneCamera()->GetViewMatrix();
+	glm::mat4 cameraProjectionMatrix = gameObject->parentScene->GetSceneCamera()->GetProjectionMatrix();
+
 	computeShader->setVec3("cameraPos", cameraPos);
 	computeShader->setVec3("cameraForward", cameraForward);
+	computeShader->setMat4("cameraViewMatrix", cameraViewMatrix);
+	computeShader->setMat4("cameraProjectionMatrix", cameraProjectionMatrix);
+
 
 	// Dispatching the compute shader so that it can run for every pixel on the game window
 	glDispatchCompute((GLuint)DISPLAY_HEIGHT, (GLuint)DISPLAY_WIDTH, 1);

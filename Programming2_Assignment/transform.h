@@ -88,16 +88,6 @@ public:
 		}
 	}
 
-	inline glm::vec3* GetForward()
-	{
-		glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f);
-
-		glm::quat rot = *this->GetGlobalRotQuaternion();
-		forward = rot * forward;
-
-		return &forward;
-	}
-
 	// Setters
 	inline void SetLocalPos(glm::vec3& pos)
 	{

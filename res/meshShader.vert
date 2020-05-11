@@ -1,10 +1,17 @@
-#version 430                                                             
-layout (location = 0) in vec2 vp;
-layout (location = 1) in vec2 vt;
-out vec2 st;
+#version 430
+
+//The layout qualifers
+layout (location = 0) in vec3 VertexPosition;
+layout (location = 1) in vec2 VertexCoord;
+layout (location = 2) in vec3 VertexNormal;
+
+//Uniform variable
+uniform mat4 transform;
+uniform mat4 projection;
 
 void main () 
 {
-  st = vt;
-  gl_Position = vec4 (vp, 0.0, 1.0);
+	vec4 pos = projection * transform * vec4(VertexPosition, 1.0);
+
+	gl_Position = vec4 (VertexPosition, 1.0);
 }

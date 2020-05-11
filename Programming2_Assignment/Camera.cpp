@@ -54,3 +54,8 @@ glm::mat4 Camera::GetProjectionMatrix()
 		return orthographicProjection;
 	}
 }
+
+glm::vec3 Camera::GetCameraForward()
+{
+	return glm::vec3(0.0f, -0.334f, 1.0f);
+}
