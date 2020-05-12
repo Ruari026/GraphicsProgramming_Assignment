@@ -29,36 +29,12 @@ RaymarchHandler::RaymarchHandler(GameObject* parent) : Component(parent)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, DISPLAY_WIDTH, DISPLAY_HEIGHT, 0, GL_RGBA, GL_FLOAT,
 		NULL);
 	glBindImageTexture(0, outputTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
+}
 
-	// Setting up space to draw the texture to
-	GLuint vao = 0, vbo = 0;
-	/*float verts[] = 
-	{
-		-1.0f, -1.0f, 0.0f, 0.0f, 
-		-1.0f, 1.0f, 0.0f, 1.0f, 
-		1.0f, -1.0f, 1.0f, 0.0f, 
-		1.0f, 1.0f, 1.0f, 1.0f 
-	};*/
-	float verts[] =
-	{
-		0.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, 0.0f, 1.0f, 0.0f,
-		1.0f, 1.0f, 1.0f, 1.0f
-	};
-
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, 16 * sizeof(float), verts, GL_STATIC_DRAW);
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glEnableVertexAttribArray(0);
-	GLintptr stride = 4 * sizeof(float);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, stride, NULL);
-	glEnableVertexAttribArray(1);
-	GLintptr offset = 2 * sizeof(float);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (GLvoid *)offset);
-	quad_vao = vao;
+void RaymarchHandler::Init(GameObject* sphere, GameObject* cube)
+{
+	this->testSphere = sphere;
+	this->testCube = cube;
 }
 
 void RaymarchHandler::Update()
@@ -73,18 +49,25 @@ void RaymarchHandler::Update()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, DISPLAY_WIDTH, DISPLAY_HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
 	glBindImageTexture(0, outputTexture, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
 
+
+
+	// Passing through scene details
 	// Camera Details
 	glm::vec3 cameraPos = *gameObject->parentScene->GetSceneCamera()->thisTransform->GetGlobalPos();
 	glm::vec3 cameraForward = gameObject->parentScene->GetSceneCamera()->GetCameraForward();
 	float cameraFOV = gameObject->parentScene->GetSceneCamera()->GetCameraFOV();
 
-	//computeShader->setVec3("cameraPos", cameraPos);
-	//computeShader->setVec3("cameraForward", cameraForward);
-	//computeShader->setFloat("cameraFOV", cameraFOV);
+	computeShader->setVec3("cameraPos", cameraPos);
+	computeShader->setVec3("cameraForward", cameraForward);
+	computeShader->setFloat("cameraFOV", cameraFOV);
 
+	// Shapes Details
+	computeShader->setVec3("cubePos", *testCube->thisTransform->GetGlobalPos());
+	computeShader->setVec3("spherePos", *testSphere->thisTransform->GetGlobalPos());
 
 	// Dispatching the compute shader so that it can run for every pixel on the game window
-	glDispatchCompute(1024, 1024, 1);
+	glDispatchCompute(DISPLAY_WIDTH, DISPLAY_HEIGHT, 1);
+
 
 
 	// make sure writing to image has finished before read

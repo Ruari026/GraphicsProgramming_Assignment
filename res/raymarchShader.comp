@@ -1,13 +1,20 @@
 #version 430
 layout (local_size_x = 1, local_size_y = 1) in;
 layout(rgba32f, binding = 0) uniform image2D img_output;
+
+float epsilon = 0.001f;
  
 // Camera Details
 uniform vec3 cameraPos;
 uniform vec3 cameraForward;
 uniform float cameraFOV;
 
-// Lighting Details
+// Testing Cube Details
+uniform vec3 cubePos;
+
+// Testing Sphere Details
+uniform vec3 spherePos;
+
 
 
 // UNSIGNED DISTANCE FUNCTIONS
@@ -24,35 +31,97 @@ float signedDistToBox(vec3 point, vec3 center, vec3 dimentions)
   return length(max(q, 0.0)) + min(max(q.x,max(q.y,q.z)), 0.0);
 }
 
+float signedDistanceToScene(vec3 point)
+{
+	// Sphere Details
+	float sphere_r = 1.5; // Sphere Radius
+	float distToSphere = signedDstToCircle(point, spherePos, sphere_r);
+
+	// Cube Details
+	vec3 cube_d = vec3(1.0, 1.0, 1.0);
+	float distToCube = signedDistToBox(point, cubePos, cube_d);
+
+	// Constructive Solid Geometry
+	float h = clamp(0.5 + 0.5 * (distToCube - distToSphere) / 0.75, 0.0, 1.0 );
+    return mix(distToCube, distToSphere, h ) - 0.75 * h * (1.0 - h); 
+}
+
+vec3 estimateNormal(vec3 p)
+{
+    float xPl = signedDistanceToScene(vec3(p.x + epsilon, p.y, p.z));
+    float xMi = signedDistanceToScene(vec3(p.x - epsilon, p.y, p.z));
+    float yPl = signedDistanceToScene(vec3(p.x, p.y + epsilon, p.z));
+    float yMi = signedDistanceToScene(vec3(p.x, p.y - epsilon, p.z));
+    float zPl = signedDistanceToScene(vec3(p.x, p.y, p.z + epsilon));
+    float zMi = signedDistanceToScene(vec3(p.x, p.y, p.z - epsilon));
+
+    float xDiff = xPl - xMi;
+    float yDiff = yPl - yMi;
+    float zDiff = zPl - zMi;
+    return normalize(vec3(xDiff, yDiff, zDiff));
+}
+
+
 
 // RAYMARCHING
 void main() 
 {
-	vec4 pixel = vec4(0.0, 0.0, 0.0, 0.0);
-
-	vec2 pixel_coords = vec2(gl_GlobalInvocationID.xy);
+	ivec2 pixel_coords = ivec2(gl_GlobalInvocationID.xy);
 
 	vec2 dims = imageSize(img_output); 
 	vec2 uv = ((pixel_coords / dims) * 2 - 1);
 
 	// Raycast Details
 	vec3 rayOrigin = cameraPos;
-	vec3 rayDirection = cameraForward + vec3(uv, 1.4281); // Temp solution that assumes fov = 70;
+	float f = tanh(cameraFOV / 2);
+	vec3 rayDirection = vec3(((cameraForward.x * f) + uv.x), ((cameraForward.y * f) + uv.y), (cameraForward.z * f)); // Assumes that aspect ration = 1:1
 	rayDirection = normalize(rayDirection);
 
-	// Object To Check For (Test Sphere Details)
-	vec3 sphere_c = vec3(0.0, 0.0, 5.0); //Sphere Position
-	float sphere_r = 1.0; // Sphere Radius
-
 	// Raycast Calculations
+	vec4 pixel = vec4(0.0, 0.0, 0.0, 0.0);
 	float rayDist = 0;
-	while (rayDist < 10)
+	while (rayDist < 25)
 	{
 		// Gets The Distance To The Sphere Surface
 		vec3 checkPoint = rayOrigin + (rayDirection * rayDist);
-		float dist = signedDstToCircle(checkPoint, sphere_c, sphere_r);
-		if (dist <= 0.1)
+		float dist = signedDistanceToScene(checkPoint);
+		if (dist <= epsilon)
 		{
+			// Hit normal
+			vec3 hitNormal = estimateNormal(checkPoint);
+			
+			// Light Details
+			vec3 lightPos = vec3(2.5, 2.5, -5);
+			vec3 lightDir = normalize(lightPos - checkPoint);
+
+
+			// Simple ambient + diffuse lighting
+			// Base Color
+			vec3 baseColor = vec3(1.0, 1.0, 1.0);
+
+			// Ambient Color
+			vec3 lightColor = vec3(0.0, 0.2, 0.2);
+			float ambientStrength = 0.6;
+			vec3 ambientColor = ambientStrength * lightColor;
+
+			// Diffuse Color
+			float diff = max(dot(hitNormal, lightDir), 0.0);
+			vec3 diffuseColor = diff * lightColor;
+
+			// Output Color
+			vec3 result = (ambientColor + diffuseColor) * baseColor;
+			pixel = vec4(result, 1.0);
+			
+
+			// Rim Shading
+			vec3 viewDirection = checkPoint - cameraPos;
+			viewDirection = normalize(viewDirection);
+
+			float dotProduct = dot(hitNormal, viewDirection);
+			dotProduct = abs(dotProduct);
+
+			pixel = mix(vec4(0.0, 1.0, 1.0, 1.0), pixel, (pow(dotProduct, 0.5)));
+
 			break;
 		}
 		else
@@ -61,9 +130,6 @@ void main()
 		}
 	}
 
-	pixel = vec4(dims.y, dims.y, dims.y, 1.0);
-
 	// Writing to the specific pixel in the image based on the current workgroup
 	imageStore(img_output, ivec2(pixel_coords.xy), pixel);
 }
-

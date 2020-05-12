@@ -10,6 +10,8 @@ class RaymarchHandler : public Component
 {
 public:
 	RaymarchHandler(GameObject* parent);
+	void Init(GameObject* sphere, GameObject* cube);
+
 	void Update();
 
 private:
@@ -17,5 +19,7 @@ private:
 	Shader* renderShader;
 
 	GLuint outputTexture;
-	GLuint quad_vao;
+
+	GameObject* testSphere;
+	GameObject* testCube;
 };

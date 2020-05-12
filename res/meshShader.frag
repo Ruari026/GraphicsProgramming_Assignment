@@ -1,9 +1,17 @@
+//Version number
 #version 430
-in vec2 st;
-uniform sampler2D img;
-out vec4 fc;
 
-void main () 
+//Layout Qualifer
+layout( location = 0 ) out vec4 fragcolor;
+ 
+in vec2 v_coord;
+
+uniform sampler2D diffuse;
+
+void main()
 {
-  fc = texture (img, st);
+	//Setting each vector component to uniform varaible then setting final colour
+	vec4 color = texture2D(diffuse, v_coord);
+
+    fragcolor = color;
 }

@@ -16,7 +16,7 @@ TestLevel::TestLevel() : GameScene()
 		// Transform
 		sceneCamera = cameraGameObject->addComponent<Camera>();
 		sceneCamera->Init(70.0f, (DISPLAY_WIDTH / DISPLAY_HEIGHT), 0.01f, 1000.0f);
-		cameraGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 0.0f));
+		cameraGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.5f, -5.0f));
 	}
 
 	/*
@@ -29,7 +29,7 @@ TestLevel::TestLevel() : GameScene()
 		sceneGameObjects.push_back(explodingGameobject);
 
 		// Transform
-		explodingGameobject->thisTransform->SetGlobalPos(glm::vec3(2.5f, 0.0f, 7.5f));
+		explodingGameobject->thisTransform->SetGlobalPos(glm::vec3(4.0f, 0.0f, 7.5f));
 		explodingGameobject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.75f), 0.0f));
 
 		// Movement
@@ -78,7 +78,7 @@ TestLevel::TestLevel() : GameScene()
 		sceneGameObjects.push_back(reflectionGameobject);
 
 		// Transform
-		reflectionGameobject->thisTransform->SetGlobalPos(glm::vec3(-2.5f, 0.0f, 5.0f));
+		reflectionGameobject->thisTransform->SetGlobalPos(glm::vec3(-4.0f, 0.0f, 5.0f));
 		reflectionGameobject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.75f), 0.0f));
 
 		// Movement
@@ -102,26 +102,34 @@ TestLevel::TestLevel() : GameScene()
 	====================================================================================================
 	*/
 	{
-		/*
-		GameObject* testGameObject = new GameObject(this);
-		sceneGameObjects.push_back(testGameObject);
+		// Cube GameObject
+		GameObject* cube = new GameObject(this);
+		sceneGameObjects.push_back(cube);
+		cube->thisTransform->SetGlobalPos(glm::vec3(0.0f, -2.5f, 0.0f));
 
-		glm::vec3 newPos = (glm::vec3(0.0f, 0.0f, 1.4281f));
-		testGameObject->thisTransform->SetGlobalPos(newPos);
-		testGameObject->thisTransform->SetGlobalRot(glm::vec3((3.14f * 1.0f), 0.0f, 0.0f));
-		
-		MeshRenderer* mr = testGameObject->addComponent<MeshRenderer>();
-		mr->Init("..\\res\\plane.obj", "..\\res\\prototype.png", "..\\res\\shaderGeoText");
-		*/
+		MeshMovement* cubeMR = cube->addComponent<MeshMovement>();
+		cubeMR->SetMovementDirection(glm::vec3(0.0f, 0.0f, 0.0f));
+		cubeMR->SetMovementMagnitude(0.0f);
 
-		// Gameobject
+		// Sphere Gameobject
+		GameObject* sphere = new GameObject(this);
+		sceneGameObjects.push_back(sphere);
+		sphere->thisTransform->SetGlobalPos(glm::vec3(0.0f, -2.5f, 0.0f));
+
+		MeshMovement* sphereMR = sphere->addComponent<MeshMovement>();
+		sphereMR->SetMovementDirection(glm::vec3(1.0f, 0.0f, 0.0f));
+		sphereMR->SetMovementMagnitude(1.5f);
+
+
+
+		// Raymarching Gameobject
 		GameObject* raymarchGameobject = new GameObject(this);
 		raymarchGameobject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 1.0f));
 		sceneGameObjects.push_back(raymarchGameobject);
 
 		// Compute Shader Test
 		RaymarchHandler* rh = raymarchGameobject->addComponent<RaymarchHandler>();
-
-
+		rh->Init(sphere, cube);
+		
 	}
 }

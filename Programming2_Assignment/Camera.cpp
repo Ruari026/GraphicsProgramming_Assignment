@@ -25,7 +25,7 @@ void Camera::Update()
 glm::mat4 Camera::GetViewProjection()
 {
 	glm::vec3 pos = *thisTransform->GetGlobalPos();
-	glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f);
+	glm::vec3 forward = glm::vec3(0.0f, -0.334f, 1.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	if (cameraPerspective)
@@ -40,7 +40,7 @@ glm::mat4 Camera::GetViewProjection()
 glm::mat4 Camera::GetViewMatrix()
 {
 	glm::vec3 pos = *thisTransform->GetGlobalPos();
-	glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f);
+	glm::vec3 forward = glm::vec3(0.0f, -0.334f, 1.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	return glm::lookAt(pos, pos + forward, up);
@@ -65,5 +65,5 @@ float Camera::GetCameraFOV()
 
 glm::vec3 Camera::GetCameraForward()
 {
-	return glm::vec3(0.0f, 0.0f, 1.0f);
+	return glm::vec3(0.0f, -0.334f, 1.0f);
 }
