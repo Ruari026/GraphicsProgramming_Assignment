@@ -16,7 +16,7 @@ TestLevel::TestLevel() : GameScene()
 		// Transform
 		sceneCamera = cameraGameObject->addComponent<Camera>();
 		sceneCamera->Init(70.0f, (DISPLAY_WIDTH / DISPLAY_HEIGHT), 0.01f, 1000.0f);
-		cameraGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 1.75f, -5.0f));
+		cameraGameObject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 
 	/*
@@ -102,26 +102,25 @@ TestLevel::TestLevel() : GameScene()
 	====================================================================================================
 	*/
 	{
-		
+		/*
 		GameObject* testGameObject = new GameObject(this);
 		sceneGameObjects.push_back(testGameObject);
 
-		glm::vec3 newPos = glm::vec3(0.0f, 1.75f, -5.0f) + (glm::vec3(0.0f, -0.32f, 0.95f) * 2.1f);
+		glm::vec3 newPos = (glm::vec3(0.0f, 0.0f, 1.4281f));
 		testGameObject->thisTransform->SetGlobalPos(newPos);
-		testGameObject->thisTransform->SetGlobalRot(glm::vec3((3.14f * -0.9f), 0.0f, 0.0f));
+		testGameObject->thisTransform->SetGlobalRot(glm::vec3((3.14f * 1.0f), 0.0f, 0.0f));
 		
 		MeshRenderer* mr = testGameObject->addComponent<MeshRenderer>();
 		mr->Init("..\\res\\plane.obj", "..\\res\\prototype.png", "..\\res\\shaderGeoText");
-		
-
+		*/
 
 		// Gameobject
-		/*GameObject* raymarchGameobject = new GameObject(this);
+		GameObject* raymarchGameobject = new GameObject(this);
 		raymarchGameobject->thisTransform->SetGlobalPos(glm::vec3(0.0f, 0.0f, 1.0f));
 		sceneGameObjects.push_back(raymarchGameobject);
 
 		// Compute Shader Test
-		RaymarchHandler* rh = raymarchGameobject->addComponent<RaymarchHandler>();*/
+		RaymarchHandler* rh = raymarchGameobject->addComponent<RaymarchHandler>();
 
 
 	}

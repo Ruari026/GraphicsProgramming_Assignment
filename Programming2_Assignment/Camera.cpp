@@ -9,9 +9,12 @@ Camera::Camera(GameObject* parent) : Component(parent)
 
 void Camera::Init(float fov, float aspect, float zNear, float zFar)
 {
-	cameraPerspective = true;
+	cameraFOV = fov;
 
-	this->perspectiveProjection = glm::perspective(fov, aspect, zNear, zFar);
+	// Converting fov to radians
+	float radFov = fov * 3.14f / 180;
+
+	this->perspectiveProjection = glm::perspective(radFov, aspect, zNear, zFar);
 	this->orthographicProjection = glm::ortho((-1024.0f / 150), (1024.0f / 150), (-1024.0f / 200), (1024.0f / 200), zNear, zFar);
 }
 
@@ -22,7 +25,7 @@ void Camera::Update()
 glm::mat4 Camera::GetViewProjection()
 {
 	glm::vec3 pos = *thisTransform->GetGlobalPos();
-	glm::vec3 forward = glm::vec3(0.0f, -0.334f, 1.0f);
+	glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	if (cameraPerspective)
@@ -37,7 +40,7 @@ glm::mat4 Camera::GetViewProjection()
 glm::mat4 Camera::GetViewMatrix()
 {
 	glm::vec3 pos = *thisTransform->GetGlobalPos();
-	glm::vec3 forward = glm::vec3(0.0f, -0.334f, 1.0f);
+	glm::vec3 forward = glm::vec3(0.0f, 0.0f, 1.0f);
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	return glm::lookAt(pos, pos + forward, up);
@@ -55,7 +58,12 @@ glm::mat4 Camera::GetProjectionMatrix()
 	}
 }
 
+float Camera::GetCameraFOV()
+{
+	return this->cameraFOV;
+}
+
 glm::vec3 Camera::GetCameraForward()
 {
-	return glm::vec3(0.0f, -0.334f, 1.0f);
+	return glm::vec3(0.0f, 0.0f, 1.0f);
 }

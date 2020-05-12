@@ -76,17 +76,15 @@ void RaymarchHandler::Update()
 	// Camera Details
 	glm::vec3 cameraPos = *gameObject->parentScene->GetSceneCamera()->thisTransform->GetGlobalPos();
 	glm::vec3 cameraForward = gameObject->parentScene->GetSceneCamera()->GetCameraForward();
-	glm::mat4 cameraViewMatrix = gameObject->parentScene->GetSceneCamera()->GetViewMatrix();
-	glm::mat4 cameraProjectionMatrix = gameObject->parentScene->GetSceneCamera()->GetProjectionMatrix();
+	float cameraFOV = gameObject->parentScene->GetSceneCamera()->GetCameraFOV();
 
-	computeShader->setVec3("cameraPos", cameraPos);
-	computeShader->setVec3("cameraForward", cameraForward);
-	computeShader->setMat4("cameraViewMatrix", cameraViewMatrix);
-	computeShader->setMat4("cameraProjectionMatrix", cameraProjectionMatrix);
+	//computeShader->setVec3("cameraPos", cameraPos);
+	//computeShader->setVec3("cameraForward", cameraForward);
+	//computeShader->setFloat("cameraFOV", cameraFOV);
 
 
 	// Dispatching the compute shader so that it can run for every pixel on the game window
-	glDispatchCompute((GLuint)DISPLAY_HEIGHT, (GLuint)DISPLAY_WIDTH, 1);
+	glDispatchCompute(1024, 1024, 1);
 
 
 	// make sure writing to image has finished before read
@@ -100,9 +98,6 @@ void RaymarchHandler::Update()
 		glBindTexture(GL_TEXTURE_2D, outputTexture); //type of and texture to bind to unit
 
 		// Mesh
-		/*glBindVertexArray(quad_vao);
-		glDrawArrays(GL_TRIANGLES, 0, 4);
-		glBindVertexArray(0);*/
 		Mesh* m = MeshManager::Instance()->GetMesh("..\\res\\plane.obj");
 		m->draw();
 	}

@@ -5,12 +5,12 @@ layout(rgba32f, binding = 0) uniform image2D img_output;
 // Camera Details
 uniform vec3 cameraPos;
 uniform vec3 cameraForward;
-
-uniform mat4 cameraViewMatrix;
-uniform mat4 cameraProjectionMatrix;
+uniform float cameraFOV;
 
 // Lighting Details
 
+
+// UNSIGNED DISTANCE FUNCTIONS
 // Calculations For Distance Functions Sourced From:
 // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
 float signedDstToCircle(vec3 point, vec3 center, float radius)
@@ -24,39 +24,35 @@ float signedDistToBox(vec3 point, vec3 center, vec3 dimentions)
   return length(max(q, 0.0)) + min(max(q.x,max(q.y,q.z)), 0.0);
 }
 
-float getDistance(vec3 vector)
-{
-	return sqrt((vector.x * vector.x) + (vector.y * vector.y) + (vector.z * vector.z));
-}
 
+// RAYMARCHING
 void main() 
 {
 	vec4 pixel = vec4(0.0, 0.0, 0.0, 0.0);
 
-	ivec2 pixel_coords = ivec2(gl_GlobalInvocationID.xy);
-	ivec2 dims = imageSize(img_output); 
+	vec2 pixel_coords = vec2(gl_GlobalInvocationID.xy);
+
+	vec2 dims = imageSize(img_output); 
 	vec2 uv = ((pixel_coords / dims) * 2 - 1);
 
 	// Raycast Details
 	vec3 rayOrigin = cameraPos;
-	vec3 rayDirection = vec3(inverse(cameraProjectionMatrix) * vec4(cameraForward, 1)).xyz;
-	rayDirection = vec3(cameraViewMatrix * vec4(rayDirection,0)).xyz;
+	vec3 rayDirection = cameraForward + vec3(uv, 1.4281); // Temp solution that assumes fov = 70;
 	rayDirection = normalize(rayDirection);
 
 	// Object To Check For (Test Sphere Details)
-	vec3 sphere_c = vec3(0.0, 0.0, 0.0); //Sphere Position
-	float sphere_r = 2.0; // Sphere Radius
+	vec3 sphere_c = vec3(0.0, 0.0, 5.0); //Sphere Position
+	float sphere_r = 1.0; // Sphere Radius
 
 	// Raycast Calculations
 	float rayDist = 0;
-	while (rayDist < 1000)
+	while (rayDist < 10)
 	{
 		// Gets The Distance To The Sphere Surface
 		vec3 checkPoint = rayOrigin + (rayDirection * rayDist);
 		float dist = signedDstToCircle(checkPoint, sphere_c, sphere_r);
-		if (dist <= 0)
+		if (dist <= 0.1)
 		{
-			pixel = vec4(0.4, 0.4, 1.0, 1.0);
 			break;
 		}
 		else
@@ -65,7 +61,9 @@ void main()
 		}
 	}
 
+	pixel = vec4(dims.y, dims.y, dims.y, 1.0);
+
 	// Writing to the specific pixel in the image based on the current workgroup
-	imageStore(img_output, pixel_coords, pixel);
+	imageStore(img_output, ivec2(pixel_coords.xy), pixel);
 }
 
