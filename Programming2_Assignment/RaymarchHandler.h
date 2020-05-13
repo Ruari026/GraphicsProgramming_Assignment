@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "Mesh.h"
 
 #include <string>
 #include <GL\glew.h>
@@ -17,6 +18,8 @@ public:
 private:
 	Shader* computeShader;
 	Shader* renderShader;
+
+	Mesh* renderPlane;
 
 	GLuint outputTexture;
 

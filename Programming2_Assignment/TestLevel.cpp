@@ -35,12 +35,12 @@ TestLevel::TestLevel() : GameScene()
 		// Movement
 		MeshMovement* mm = explodingGameobject->addComponent<MeshMovement>();
 		mm->SetMovementDirection(glm::vec3(0.0f, 0.0f, 1.0f));
-		mm->SetMovementMagnitude(7.5f);
+		mm->SetMovementMagnitude(5.0f);
 		mm->SetRotationMagnitude(3.14f * 0.33f);
 
 		// Rendering
 		MeshRenderer* renderer = explodingGameobject->addComponent<MeshRenderer>();
-		string meshFilePath = "..\\res\\monkey3.obj";
+		string meshFilePath = "..\\res\\saxophone.obj";
 		string textureFilePath = "..\\res\\gradient.jpg";
 		string shaderFilePath = "..\\res\\shaderGeoText";
 		renderer->Init(meshFilePath, textureFilePath, shaderFilePath);
@@ -78,7 +78,7 @@ TestLevel::TestLevel() : GameScene()
 		sceneGameObjects.push_back(reflectionGameobject);
 
 		// Transform
-		reflectionGameobject->thisTransform->SetGlobalPos(glm::vec3(-4.0f, 0.0f, 5.0f));
+		reflectionGameobject->thisTransform->SetGlobalPos(glm::vec3(-2.75f, -0.75f, 3.0f));
 		reflectionGameobject->thisTransform->SetGlobalRot(glm::vec3(0.0f, (3.14f * 0.75f), 0.0f));
 
 		// Movement
@@ -89,7 +89,7 @@ TestLevel::TestLevel() : GameScene()
 
 		// Rendering
 		MeshRenderer* renderer = reflectionGameobject->addComponent<MeshRenderer>();
-		string meshFilePath = "..\\res\\cube.obj";
+		string meshFilePath = "..\\res\\piano.obj";
 		string shaderFilePath = "..\\res\\shaderReflection";
 		Skybox* skybox = sr->GetSkybox();
 		renderer->Init(meshFilePath, skybox, shaderFilePath);
@@ -98,7 +98,7 @@ TestLevel::TestLevel() : GameScene()
 
 	/*
 	====================================================================================================
-	CW SHADER 3 - ADDITIONAL GRAPHICAL TECHNIQUE
+	CW SHADER 3 - ADDITIONAL GRAPHICAL TECHNIQUE - RAYMARCHING
 	====================================================================================================
 	*/
 	{
@@ -108,7 +108,7 @@ TestLevel::TestLevel() : GameScene()
 		cube->thisTransform->SetGlobalPos(glm::vec3(0.0f, -2.5f, 0.0f));
 
 		MeshMovement* cubeMR = cube->addComponent<MeshMovement>();
-		cubeMR->SetMovementDirection(glm::vec3(0.0f, 0.0f, 0.0f));
+		cubeMR->SetMovementDirection(glm::vec3(1.0f, 0.0f, 0.0f));
 		cubeMR->SetMovementMagnitude(0.0f);
 
 		// Sphere Gameobject
@@ -118,7 +118,7 @@ TestLevel::TestLevel() : GameScene()
 
 		MeshMovement* sphereMR = sphere->addComponent<MeshMovement>();
 		sphereMR->SetMovementDirection(glm::vec3(1.0f, 0.0f, 0.0f));
-		sphereMR->SetMovementMagnitude(1.5f);
+		sphereMR->SetMovementMagnitude(1.75f);
 
 
 

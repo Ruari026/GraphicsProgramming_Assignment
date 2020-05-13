@@ -18,12 +18,13 @@ RaymarchHandler::RaymarchHandler(GameObject* parent) : Component(parent)
 	// Quad Rendering Shader
 	renderShader = ShaderManager::Instance()->GetShader("..\\res\\meshShader");
 
+	// Plane to render generated texture to
+	renderPlane = MeshManager::Instance()->GetMesh("..\\res\\plane.obj");
+
 	// Creating A Texture To Render The Output To
 	glGenTextures(1, &outputTexture);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, outputTexture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, DISPLAY_WIDTH, DISPLAY_HEIGHT, 0, GL_RGBA, GL_FLOAT,
@@ -81,7 +82,6 @@ void RaymarchHandler::Update()
 		glBindTexture(GL_TEXTURE_2D, outputTexture); //type of and texture to bind to unit
 
 		// Mesh
-		Mesh* m = MeshManager::Instance()->GetMesh("..\\res\\plane.obj");
-		m->draw();
+		renderPlane->draw();
 	}
 }

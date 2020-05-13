@@ -143,15 +143,9 @@
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\res\combinedShader.frag" />
-    <None Include="..\res\combinedShader.vert" />
-    <None Include="..\res\fogShader.frag" />
-    <None Include="..\res\fogShader.vert" />
     <None Include="..\res\meshShader.frag" />
     <None Include="..\res\meshShader.vert" />
     <None Include="..\res\raymarchShader.comp" />
-    <None Include="..\res\rimShader.frag" />
-    <None Include="..\res\rimShader.vert" />
     <None Include="..\res\shaderGeoText.frag" />
     <None Include="..\res\shaderGeoText.geom" />
     <None Include="..\res\shaderGeoText.vert" />
@@ -159,8 +153,6 @@
     <None Include="..\res\shaderReflection.vert" />
     <None Include="..\res\shaderSkybox.frag" />
     <None Include="..\res\shaderSkybox.vert" />
-    <None Include="..\res\shaderToon.frag" />
-    <None Include="..\res\shaderToon.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

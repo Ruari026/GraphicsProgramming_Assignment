@@ -37,9 +37,6 @@
     <Filter Include="Header Files\Managers">
       <UniqueIdentifier>{4d7f1370-d23f-43d2-adc7-925586fcaac9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Labs">
-      <UniqueIdentifier>{5c053aa6-4e20-45e1-a65a-4f88c68a4a5b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{049a8030-88b5-49db-aa02-bb1542d0f01c}</UniqueIdentifier>
     </Filter>
@@ -256,30 +253,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\res\combinedShader.frag">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\combinedShader.vert">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\fogShader.frag">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\fogShader.vert">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\rimShader.frag">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\rimShader.vert">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\shaderToon.frag">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
-    <None Include="..\res\shaderToon.vert">
-      <Filter>Resource Files\Labs</Filter>
-    </None>
     <None Include="..\res\shaderGeoText.vert">
       <Filter>Resource Files\Shaders\Exploding Shader</Filter>
     </None>

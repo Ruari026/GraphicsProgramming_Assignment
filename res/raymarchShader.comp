@@ -20,30 +20,38 @@ uniform vec3 spherePos;
 // UNSIGNED DISTANCE FUNCTIONS
 // Calculations For Distance Functions Sourced From:
 // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
-float signedDstToCircle(vec3 point, vec3 center, float radius)
+float DistanceToSphere(vec3 pointToCheck, vec3 sphereCenter, float sphereRadius)
 {
-	return length(center - point) - radius;
+	return length(pointToCheck - sphereCenter) - sphereRadius;
 }
-
-float signedDistToBox(vec3 point, vec3 center, vec3 dimentions)
+float DistanceToBox(vec3 pointToCheck, vec3 boxCenter, vec3 boxDimentions)
 {
-  vec3 q = abs(point - center) - dimentions;
+  vec3 q = abs(pointToCheck - boxCenter) - boxDimentions;
   return length(max(q, 0.0)) + min(max(q.x,max(q.y,q.z)), 0.0);
 }
-
 float signedDistanceToScene(vec3 point)
 {
 	// Sphere Details
-	float sphere_r = 1.5; // Sphere Radius
-	float distToSphere = signedDstToCircle(point, spherePos, sphere_r);
+	float radius = 1.5; // Sphere Radius
+	float sphereDistance = DistanceToSphere(point, spherePos, radius);
 
 	// Cube Details
-	vec3 cube_d = vec3(1.0, 1.0, 1.0);
-	float distToCube = signedDistToBox(point, cubePos, cube_d);
+	vec3 size = vec3(1.0, 1.0, 1.0);
+	float cubeDistance = DistanceToBox(point, cubePos, size);
 
-	// Constructive Solid Geometry
-	float h = clamp(0.5 + 0.5 * (distToCube - distToSphere) / 0.75, 0.0, 1.0 );
-    return mix(distToCube, distToSphere, h ) - 0.75 * h * (1.0 - h); 
+
+	// Constructive Solid Geometry (Primitive Union)
+    //return min(cubeDistance, sphereDistance);
+	
+	// Constructive Solid Geometry (Primitive Intersection)
+    //return max(cubeDistance, sphereDistance);
+
+	// Constructive Solid Geometry (Primitive Subtraction)
+    //return max(cubeDistance, -sphereDistance);
+
+	// Constructive Solid Geometry (Blending Primitives)
+	float h = clamp(0.5 + 0.5 * (sphereDistance - cubeDistance) / 0.75, 0.0, 1.0 );
+    return mix(sphereDistance, cubeDistance, h ) - 0.75 * h * (1.0 - h); 
 }
 
 vec3 estimateNormal(vec3 p)
@@ -120,7 +128,7 @@ void main()
 			float dotProduct = dot(hitNormal, viewDirection);
 			dotProduct = abs(dotProduct);
 
-			pixel = mix(vec4(0.0, 1.0, 1.0, 1.0), pixel, (pow(dotProduct, 0.5)));
+			pixel = mix(vec4(0.0, 1.0, 1.0, 1.0), pixel, (pow(dotProduct, 1)));
 
 			break;
 		}
